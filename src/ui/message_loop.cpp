@@ -27,6 +27,12 @@ void MessageLoop::pumpMessages()
   } else {
     m_manager->collectGarbage();
   }
+  
+  // Call flipDisplay from the central location if a redraw was requested
+  if (m_manager->isRedrawRequested() || !m_manager->getDirtyRegion().isEmpty()) {
+    m_manager->flipDisplay();
+  }
+  
   she::instance()->sleep();
 }
 

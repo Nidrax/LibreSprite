@@ -43,6 +43,9 @@ namespace ui {
     // Refreshes the real display with the UI content.
     void flipDisplay();
 
+    // Request a redraw on the next frame
+    void requestRedraw() { m_redrawRequested = true; }
+
     // Returns true if there are messages in the queue to be
     // distpatched through jmanager_dispatch_messages().
     bool generateMessages();
@@ -96,6 +99,12 @@ namespace ui {
     void addInvalidRegion(const gfx::Region& b) {
       m_invalidRegion |= b;
     }
+
+    // Check if a redraw was requested
+    bool isRedrawRequested() const { return m_redrawRequested; }
+    
+    // Get the dirty region
+    const gfx::Region& getDirtyRegion() const { return m_dirtyRegion; }
 
     // Mark the given rectangle as a area to be flipped to the real
     // screen
@@ -179,6 +188,11 @@ namespace ui {
 
     // Current pressed buttons.
     MouseButtons m_mouseButtons;
+
+    // Frame-limited redraw mechanism
+    bool m_redrawRequested;
+    double m_lastFlipTime;
+    static constexpr double MIN_FRAME_INTERVAL = 1.0 / 120.0; // 120 FPS max
   };
 
 } // namespace ui
