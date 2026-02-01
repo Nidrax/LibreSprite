@@ -86,7 +86,7 @@ public:
         if (isDir)
           continue;
         if (fwrite(buff, size, 1, out.get()) != 1)
-          throw std::runtime_error("Error writing extracted file");
+          throw std::runtime_error("Error writing extracted file: " + fileName);
       }
     }
   }

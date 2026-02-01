@@ -411,7 +411,7 @@ bool TgaFormat::onSave(FileOp* fop)
       image_palette[y][0] = b;
     }
     if (fwrite(image_palette, 1, 768, f) != 768)
-      throw base::Exception("Error writing palette data");
+      throw base::Exception("Error writing TGA palette data");
   }
 
   switch (image->pixelFormat()) {
