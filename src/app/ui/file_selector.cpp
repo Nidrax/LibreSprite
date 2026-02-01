@@ -547,6 +547,15 @@ again:
     }
     // else file-name specified in the entry is really a file to open...
 
+    // Validate filename for illegal characters
+    std::string finalFilename = base::get_file_name(buf);
+    std::string validationError = base::get_filename_validation_error(finalFilename);
+    if (!validationError.empty()) {
+      ui::Alert::show("Error<<Invalid filename<<%s||&OK", validationError.c_str());
+      setVisible(true);
+      goto again;
+    }
+
     // does it not have extension? ...we should add the extension
     // selected in the filetype combo-box
     if (base::get_file_extension(buf).empty()) {
@@ -740,6 +749,13 @@ void FileSelector::onNewFolder()
     IFileItem* currentFolder = m_fileList->getCurrentFolder();
     if (currentFolder) {
       std::string dirname = window.name()->text();
+
+      // Validate directory name for illegal characters
+      std::string validationError = base::get_filename_validation_error(dirname);
+      if (!validationError.empty()) {
+        ui::Alert::show("Error<<Invalid folder name<<%s||&OK", validationError.c_str());
+        return;
+      }
 
       // Create the new directory
       try {

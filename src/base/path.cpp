@@ -243,4 +243,115 @@ int compare_filenames(const std::string& a, const std::string& b)
     return 1;
 }
 
+bool is_valid_filename(const std::string& filename)
+{
+  // Empty filename is invalid
+  if (filename.empty())
+    return false;
+
+  // Check for null character (invalid on all platforms)
+  if (filename.find('\0') != std::string::npos)
+    return false;
+
+#ifdef _WIN32
+  // Windows illegal characters: < > : " / \ | ? *
+  // Also control characters (0-31) and reserved names
+  const std::string illegal_chars = "<>:\"/\\|?*";
+  
+  for (char c : filename) {
+    // Check for control characters
+    if (c >= 0 && c <= 31)
+      return false;
+    
+    // Check for illegal characters
+    if (illegal_chars.find(c) != std::string::npos)
+      return false;
+  }
+
+  // Check for reserved names on Windows (case-insensitive)
+  std::string upper_filename = base::string_to_upper(get_file_title(filename));
+  const char* reserved_names[] = {
+    "CON", "PRN", "AUX", "NUL",
+    "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+    "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+  };
+  
+  for (const char* reserved : reserved_names) {
+    if (upper_filename == reserved)
+      return false;
+  }
+
+  // Filenames cannot end with a period or space on Windows
+  char last_char = filename.back();
+  if (last_char == '.' || last_char == ' ')
+    return false;
+#else
+  // On Unix-like systems (macOS, Linux), only '/' and null are illegal
+  if (filename.find('/') != std::string::npos)
+    return false;
+#endif
+
+  return true;
+}
+
+std::string get_filename_validation_error(const std::string& filename)
+{
+  if (filename.empty())
+    return "Filename cannot be empty.";
+
+  if (filename.find('\0') != std::string::npos)
+    return "Filename contains null character.";
+
+#ifdef _WIN32
+  // Check for control characters
+  for (char c : filename) {
+    if (c >= 0 && c <= 31)
+      return "Filename contains invalid control characters.";
+  }
+
+  // Build list of illegal characters found
+  const std::string illegal_chars = "<>:\"/\\|?*";
+  std::string found_illegal;
+  
+  for (char c : filename) {
+    if (illegal_chars.find(c) != std::string::npos) {
+      if (found_illegal.find(c) == std::string::npos) {
+        if (!found_illegal.empty())
+          found_illegal += " ";
+        found_illegal += c;
+      }
+    }
+  }
+  
+  if (!found_illegal.empty())
+    return "Filename contains illegal characters: " + found_illegal;
+
+  // Check for reserved names
+  std::string upper_filename = base::string_to_upper(get_file_title(filename));
+  const char* reserved_names[] = {
+    "CON", "PRN", "AUX", "NUL",
+    "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+    "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+  };
+  
+  for (const char* reserved : reserved_names) {
+    if (upper_filename == reserved)
+      return "Filename \"" + std::string(reserved) + "\" is reserved by Windows.";
+  }
+
+  // Check for trailing period or space
+  char last_char = filename.back();
+  if (last_char == '.')
+    return "Filename cannot end with a period on Windows.";
+  if (last_char == ' ')
+    return "Filename cannot end with a space on Windows.";
+#else
+  // Unix-like systems
+  if (filename.find('/') != std::string::npos)
+    return "Filename contains illegal character: /";
+#endif
+
+  return "";  // Valid filename
+}
+
 } // namespace base

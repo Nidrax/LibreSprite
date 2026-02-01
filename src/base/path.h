@@ -52,4 +52,12 @@ namespace base {
 
   int compare_filenames(const std::string& a, const std::string& b);
 
+  // Validates if a filename (not a full path) contains only legal characters
+  // for the current platform. Returns true if the filename is valid.
+  bool is_valid_filename(const std::string& filename);
+
+  // Returns a user-friendly error message describing which illegal
+  // characters are present in the filename, or an empty string if valid.
+  std::string get_filename_validation_error(const std::string& filename);
+
 }
