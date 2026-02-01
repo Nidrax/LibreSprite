@@ -12,15 +12,70 @@
 *.res
 *.vs
 
-# CMake output
+# --- CMake output
 build
 
-# Snap related
+# --- Snap related
 /parts
 /prime
 /stage
 /*.snap
 /snap/.snapcraft/
 /.cache/
-*~
 /android/
+
+# --- JetBrains IDEs (IntelliJ, CLion, Rider, PhpStorm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Visual Studio Code
+.vscode/
+
+# --- Visual Studio
+.vs/
+*.VC.db
+*.VC.VC.opendb
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.user
+
+# --- Xcode / macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.fseventsd/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.xcuserdata
+
+# --- CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# --- Windows garbage / temp
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editor swap / temp files
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+*.cache
+
+# --- GitHub CodeQL
+_codeql_detected_source_root/
