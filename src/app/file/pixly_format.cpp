@@ -269,7 +269,7 @@ bool PixlyFormat::onSave(FileOp* fop)
   FILE* fp = handle.get();
 
   // TODO XXX beware the required typo on Pixly xml: "totalCollumns" (sic)
-  fprintf(fp,
+  if (fprintf(fp,
     "<PixlyAnimation version=\"1.5\">\n"
     "\t<Info "
     "sheetWidth=\"%d\" sheetHeight=\"%d\" "
@@ -281,7 +281,8 @@ bool PixlyFormat::onSave(FileOp* fop)
     squareSide, squareSide,
     frameWidth, frameHeight,
     layerCount, imageCount
-  );
+  ) < 0)
+    throw base::Exception("Error writing Pixly header");
 
   // write cels on XML and PNG
   int index = 0;
@@ -300,7 +301,7 @@ bool PixlyFormat::onSave(FileOp* fop)
       int duration = sprite->frameDuration(frame);
 
       // TODO XXX beware the required typo on Pixly xml: "collumn" (sic)
-      fprintf(fp,
+      if (fprintf(fp,
         "\t\t<Frame duration=\"%d\" visible=\"%s\">\n"
         "\t\t\t<Region x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\"/>\n"
         "\t\t\t<Index linear=\"%d\" collumn=\"%d\" row=\"%d\"/>\n"
@@ -308,7 +309,8 @@ bool PixlyFormat::onSave(FileOp* fop)
         duration, layer->isVisible() ? "true" : "false",
         x0, y0, frameWidth, frameHeight,
         index, col, row
-      );
+      ) < 0)
+        throw base::Exception("Error writing Pixly frame data");
 
       auto cel = layer->cel(frame);
       if (cel) {
@@ -338,10 +340,11 @@ bool PixlyFormat::onSave(FileOp* fop)
   } // frame
 
   // close files
-  fprintf(fp,
+  if (fprintf(fp,
       "\t</Frames>\n"
       "</PixlyAnimation>\n"
-   );
+   ) < 0)
+    throw base::Exception("Error writing Pixly footer");
 
   sheet_doc->setFilename(base::replace_extension(fop->filename(),"png"));
   save_document(nullptr, sheet_doc.get());

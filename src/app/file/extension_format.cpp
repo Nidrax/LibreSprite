@@ -85,7 +85,8 @@ public:
           throw std::runtime_error("Error reading archive");
         if (isDir)
           continue;
-        fwrite(buff, size, 1, out.get());
+        if (fwrite(buff, size, 1, out.get()) != 1)
+          throw std::runtime_error("Error writing extracted file");
       }
     }
   }
