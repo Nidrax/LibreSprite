@@ -2,7 +2,7 @@
 name: Documentation
 about: Something wrong with the docs? Tell us here
 title: ''
-labels: documentation
+labels: docs
 assignees: ''
 
 ---

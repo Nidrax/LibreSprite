@@ -2,17 +2,13 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: unconfirmed bug
+labels: bug
 assignees: ''
 
 ---
-##### LibreSprite version
-<!-- Paste LibreSprite version between quotes down below: you'll find it on the
-bottom left corner when you open the software. If you're on a dev version,
-please specify the commit hash too -->
-
-- [ ] I am using the latest release or a build from latest commits.
-- [ ] I am not using the Flatpak. (If you are, please raise an issue [here](https://github.com/flathub/com.github.libresprite.LibreSprite/issues).
+##### Spritefinity version
+<!-- Paste Spritefinity version between quotes down below: you'll find it on the
+bottom left corner when you open the software. If you're on a dev version, specify the commit hash -->
 
 ```
 
