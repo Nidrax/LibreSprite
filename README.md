@@ -1,8 +1,7 @@
-# LibreSprite [![Liberapay](https://i.imgur.com/UOLKpPA.png "Support our work")](https://liberapay.com/LibreSprite/)
-[![Linux](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeLinux.yml/badge.svg)](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeLinux.yml) [![Windows x64](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeWin64.yml/badge.svg?branch=master)](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeWin64.yml) [![MacOS](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeMacOs.yml/badge.svg)](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeMacOs.yml) [![Android](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeAndroid.yml/badge.svg)](https://github.com/LibreSprite/LibreSprite/actions/workflows/cmakeAndroid.yml)
+# Besprited
 
 ## Introduction
-LibreSprite is a free and open source program for creating and animating your sprites.
+Besprited is a free and open source program for creating and animating 2D sprites.  It features:
 * Real-time animation previews.
 * Onion skinning.
 * Multiple sprites can be edited at once.
@@ -13,24 +12,35 @@ LibreSprite is a free and open source program for creating and animating your sp
 * Several file types supported for your sprites and animations.
 
 ## Download
-Get the [latest release](https://github.com/LibreSprite/LibreSprite/releases/latest) for Linux, MacOS, Windows or Android.
+Get the [latest release](https://github.com/Veritaware/Besprited/releases/latest) for Linux, macOS, Windows or Android.
 
 ## History
-LibreSprite originated as a fork of [Aseprite](https://www.aseprite.org), developed by [David Capello](https://github.com/dacap). Aseprite used to be distributed under the GNU General Public License version 2, but was moved to a proprietary license on [August 26th, 2016](https://github.com/aseprite/aseprite/commit/5ecc356a41c8e29977f8608d8826489d24f5fa6c).
+It all started with [Aseprite](https://www.aseprite.org), developed by [David Capello](https://github.com/dacap).
+Aseprite used to be distributed under the GNU General Public License version 2,
+but was moved to a proprietary license on [August 26th, 2016](https://github.com/aseprite/aseprite/commit/5ecc356a41c8e29977f8608d8826489d24f5fa6c).
 
-This fork was made on the [last commit](https://github.com/aseprite/aseprite/commit/03be4aa23db465219962f4c62410f628e7392545) covered by the GPL version 2 license, and is now developed independently of Aseprite.
+Aa a response to that, [LibreSprite](https://github.com/LibreSprite/LibreSprite) was created as a fork of the last
+GPLv2-licensed version of Aseprite, to continue its development as a free and open source project.
+The work has been branched-out from the [last Aseprite commit](https://github.com/aseprite/aseprite/commit/03be4aa23db465219962f4c62410f628e7392545) covered by the GPL version 2 license,
+and is now developed independently of Aseprite.
+
+In 2026 [Nidrax](https://github.com/Nidrax) forked the project under the [Veritaware](https://github.com/veritaware)
+organization to create his own opinionated version of the editor independently of LibreSprite's team design decisions
+and thus Besprited was born.
 
 ## Contributing
-As LibreSprite has a newly budding community, we need help building the infrastructure of our development, support, and news networks. If you would like to help, please make yourself known at our [Discord](https://discord.gg/95gbyU5) or [Matrix](https://matrix.to/#/%23libresprite:matrix.org), and checkout our guide on [contributing](CONTRIBUTING.md).
+Feel free to contribute to the project! Check out the [contributing guidelines](CONTRIBUTING.md) to get started.
 
 ## Compiling
-Don't worry, it isn't as hard as you might think! Just follow the instructions [here](INSTALL.md).
+Follow the [installation guide](INSTALL.md).
 
 ## Theming
-Don't like the default look of LibreSprite? Don't panic, you can download from the LibreSprite [resources](https://libresprite.github.io/#!/resources) repo. 
+The app is compatible with LibreSprite themes you can find [here](https://libresprite.github.io/#!/resources). 
 
 ## License
 This program is distributed under the [GNU General Public License Version 2](LICENSE.txt).
 
 ## Credits
-An ***enormous*** thank you to the original developers of [Aseprite](https://www.aseprite.org), without them and their original licensing this project wouldn’t exist. Additional shout-outs are given in the [list of contributors](CONTRIBUTORS.md). If you have submitted work to LibreSprite and would like to have your name on the list, please create a pull request or get in touch and we’ll make it happen.
+An ***enormous*** thank you to the original developers of [Aseprite](https://www.aseprite.org),
+without them and their original licensing this project wouldn’t exist.
+And also huge thanks to all the [LibreSprite contributors](https://github.com/LibreSprite/LibreSprite/blob/master/CONTRIBUTORS.md) who have worked hard to create a base for this project to build upon.
