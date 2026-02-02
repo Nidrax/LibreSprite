@@ -9,8 +9,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Spritefinity version
-      description: Paste Spritefinity version between quotes down below. You'll find it in the bottom left corner when you open the software. If you're on a dev version, specify the commit hash
+      label: Besprited version
+      description: Paste Besprited version between quotes down below. You'll find it in the bottom left corner when you open the software. If you're on a dev version, specify the commit hash
       placeholder: e.g., "v1.2.3" or "abcdefg"
     validations:
       required: true
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Steps to reproduce
       description: Steps to reproduce the behaviour
-      placeholder: e.g., "1. Open Spritefinity\n2. Load a project\n3. Click on Export\n4. See error"
+      placeholder: e.g., "1. Open Besprited\n2. Load a project\n3. Click on Export\n4. See error"
     validations:
       required: true
   - type: textarea
