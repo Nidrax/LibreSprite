@@ -3,6 +3,7 @@ name: Code quality
 about: Have you seen bad code? Click here
 title: ''
 labels: code-ql
+type: Task
 assignees: ''
 
 ---
