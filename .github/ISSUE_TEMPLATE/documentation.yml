@@ -2,29 +2,30 @@ name: Documentation
 description: Something wrong with the docs? Tell us here
 labels: ["docs"]
 projects: ["veritaware/6"]
-type: Task
 assignees:
   - copilot
 body:
   - type: textarea
+    id: documentation-issue
     attributes:
       label: Documentation issue
       description: Please describe what's wrong with the documentation (please no walls of text :P)
       placeholder: e.g., "The installation guide is missing steps for macOS"
+    validations:
       required: true
-      id: documentation-issue
   - type: textarea
+    id: suggested-improvement
     attributes:
       label: Suggested improvement
       description: How do you think the documentation should be improved?
       placeholder: e.g., "Add a section explaining how to install on macOS"
+    validations:
       required: false
-      id: suggested-improvement
   - type: textarea
+    id: additional-context
     attributes:
       label: Additional context
       description: Add any other context about the documentation issue here
       placeholder: e.g., "This affected me when trying to set up the project"
+    validations:
       required: false
-      style: long
-      id: additional-context
