@@ -2,9 +2,9 @@ name: MacOS
 
 on:
   push:
-    branches: [ master ]
+    branches: [ trunk ]
   pull_request:
-    branches: [ master ]
+    branches: [ trunk ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
