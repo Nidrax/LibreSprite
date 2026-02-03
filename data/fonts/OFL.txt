@@ -1,4 +1,6 @@
-Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
+Noto Sans:      Copyright 2022       The Noto Project Authors      (https://github.com/notofonts)
+Tiny5:          Copyright 2022-2024  The Tiny5 Project Authors     (https://github.com/Gissio/font_tiny5)
+Pixeloid Mono:  Copyright 2021-2025  The GGBotNet Project Authors  (https://www.ggbot.net)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

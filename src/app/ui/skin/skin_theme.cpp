@@ -254,54 +254,73 @@ void SkinTheme::loadSheet(const std::string& skinId)
 
 void SkinTheme::loadFonts(const std::string& skinId)
 {
+  typedef std::vector<std::pair<std::string, size_t>> FontList;
   TRACE("SkinTheme::loadFonts(%s)\n", skinId.c_str());
-
   Preferences& pref = Preferences::instance();
+  auto findResources = [&](const std::string& path, const size_t fontSize, std::vector<std::pair<std::string, size_t>>& output) {
+    ResourceFinder rf;
+    rf.includeDataDir(path.c_str());
+    while (rf.next()) {
+      output.push_back(std::make_pair(rf.filename(), fontSize));
+    }
+  };
+
+  // ToDo: add the ability to set preferred font size in skin XML + application preferences
   {
-      std::vector<std::string> paths;
+    FontList dataDirs {
+      std::make_pair("skins/" + skinId + "/font-" + getLanguage() + ".otf", 8),
+      std::make_pair("skins/" + skinId + "/font-" + getLanguage() + ".ttf", 8),
+      std::make_pair("skins/" + skinId + "/font-" + getLanguage() + ".png", 7),
+      std::make_pair("fonts/noto-" + getLanguage() + ".ttf", 8),
+      std::make_pair("skins/" + skinId + "/font.otf", 8),
+      std::make_pair("skins/" + skinId + "/font.ttf", 8),
+      std::make_pair("skins/" + skinId + "/font.png", 7),
+      std::make_pair("fonts/pixeloid-sans.ttf", 9),
+    };
+    FontList fonts{};
+
+    if (auto userFont = pref.theme.font(); !userFont.empty()) {
       ResourceFinder rf;
-      auto userFont = pref.theme.font();
-      if (!userFont.empty())
-          rf.addPath(userFont.c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font-" + app::getLanguage() + ".otf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font-" + app::getLanguage() + ".ttf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font-" + app::getLanguage() + ".png").c_str());
-      rf.includeDataDir(("fonts/font-" + app::getLanguage() + ".otf").c_str());
-      rf.includeDataDir(("fonts/font-" + app::getLanguage() + ".ttf").c_str());
-      rf.includeDataDir(("fonts/font-" + app::getLanguage() + ".png").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font.otf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font.ttf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font.png").c_str());
-      rf.includeDataDir("fonts/font.otf");
-      rf.includeDataDir("fonts/font.ttf");
-      rf.includeDataDir("fonts/font.png");
+      rf.addPath(userFont);
       while (rf.next()) {
-          paths.push_back(rf.filename());
+        fonts.push_back(std::make_pair(rf.filename(), 8));
       }
-      m_defaultFont = loadFont(paths, 8);
+    }
+    for (auto& [path, size] : dataDirs) {
+      findResources(path, size, fonts);
+    }
+
+    m_defaultFont = loadFont(fonts);
   }
 
   {
-      std::vector<std::string> paths;
+    FontList dataDirs {
+      std::make_pair("skins/" + skinId + "/minifont-" + getLanguage() + ".otf", 6),
+      std::make_pair("skins/" + skinId + "/minifont-" + getLanguage() + ".ttf", 6),
+      std::make_pair("skins/" + skinId + "/minifont-" + getLanguage() + ".png", 6),
+      std::make_pair("skins/" + skinId + "/font-" + getLanguage() + ".otf", 6),
+      std::make_pair("skins/" + skinId + "/font-" + getLanguage() + ".ttf", 6),
+      std::make_pair("fonts/noto-" + getLanguage() + ".ttf", 6),
+      std::make_pair("skins/" + skinId + "/minifont.otf", 6),
+      std::make_pair("skins/" + skinId + "/minifont.ttf", 6),
+      std::make_pair("skins/" + skinId + "/minifont.png", 6),
+      std::make_pair("skins/" + skinId + "/font.otf", 6),
+      std::make_pair("skins/" + skinId + "/font.ttf", 6),
+      std::make_pair("fonts/tiny5.ttf", 8),
+    };
+    FontList fonts;
+    if (auto userFont = pref.theme.miniFont(); !userFont.empty()) {
       ResourceFinder rf;
-      auto userFont = pref.theme.miniFont();
-      if (!userFont.empty())
-          rf.addPath(userFont.c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font-" + app::getLanguage() + ".otf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font-" + app::getLanguage() + ".ttf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/minifont-" + app::getLanguage() + ".png").c_str());
-      rf.includeDataDir(("fonts/font-" + app::getLanguage() + ".otf").c_str());
-      rf.includeDataDir(("fonts/font-" + app::getLanguage() + ".ttf").c_str());
-      rf.includeDataDir(("fonts/minifont-" + app::getLanguage() + ".png").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font.otf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/font.ttf").c_str());
-      rf.includeDataDir(("skins/" + skinId + "/minifont.png").c_str());
-      rf.includeDataDir("fonts/font.otf");
-      rf.includeDataDir("fonts/font.ttf");
-      rf.includeDataDir("fonts/minifont.png");
-      while (rf.next())
-          paths.push_back(rf.filename());
-      m_miniFont = loadFont(paths, 8);
+      rf.addPath(userFont);
+      while (rf.next()) {
+        fonts.push_back(std::make_pair(rf.filename(), 8));
+      }
+    }
+    for (auto& [path, size] : dataDirs) {
+      findResources(path, size, fonts);
+    }
+
+    m_miniFont = loadFont(fonts);
   }
 }
 
@@ -364,7 +383,7 @@ void SkinTheme::loadThemeXml(const std::string& filename) {
         font = it->second;
       } else if (!file.empty()) {
         uint32_t size = strtol(xmlDim->Attribute("size", "8"), NULL, 10);
-        font = loadFont({file}, size);
+        font = loadFont({std::make_pair(file, size)});
         if (!font) {
           std::cerr << "Could not load font " << file << std::endl;
         }
@@ -2358,12 +2377,12 @@ void SkinTheme::paintIcon(Widget* widget, Graphics* g, IButtonIcon* iconInterfac
     g->drawRgbaSurface(icon_bmp, x, y);
 }
 
-std::shared_ptr<she::Font> SkinTheme::loadFont(const std::vector<std::string>& fonts, std::size_t size)
+std::shared_ptr<she::Font> SkinTheme::loadFont(const std::vector<std::pair<std::string, size_t>>& fonts)
 {
   std::shared_ptr<she::Font> fallback;
   std::vector<std::pair<std::string, std::string>> candidates;
 
-  for (auto& themeFont : fonts) {
+  for (const auto& [themeFont, size] : fonts) {
     bool isTrueType = base::get_file_extension(themeFont) != "png";
     if (isTrueType) {
       if (auto f = she::instance()->loadTrueTypeFont(themeFont.c_str(), size * guiscale())) {
@@ -2401,6 +2420,8 @@ std::shared_ptr<she::Font> SkinTheme::loadFont(const std::vector<std::string>& f
   });
   while (!candidates.empty()) {
     auto& themeFont = candidates.back().second;
+    // Use the size from the first font pair (if available) for fallback fonts
+    auto size = fonts.empty() ? 0 : fonts.front().second;
     if (auto f = she::instance()->loadTrueTypeFont(themeFont.c_str(), size * guiscale())) {
       // std::cout << "Loaded fallback font: " << themeFont << std::endl;
       return std::shared_ptr<she::Font>(f);
