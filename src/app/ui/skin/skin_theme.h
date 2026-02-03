@@ -130,7 +130,7 @@ namespace app {
 
       void paintIcon(ui::Widget* widget, ui::Graphics* g, ui::IButtonIcon* iconInterface, int x, int y);
 
-      std::shared_ptr<she::Font> loadFont(const std::vector<std::string>& fonts, std::size_t);
+      std::shared_ptr<she::Font> loadFont(const std::vector<std::pair<std::string, size_t>>& fonts);
 
       she::Surface* m_sheet;
       std::map<std::string, SkinPartPtr> m_parts_by_id;
