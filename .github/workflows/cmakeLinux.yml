@@ -33,17 +33,17 @@ jobs:
     - name: mkdir
       run: mkdir build
     - name: cmake
-      run: cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja libresprite
+      run: cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja besprited
     - name: appimage
       run: |
         cd build/bin
         export ARCH="$(uname -m)"
         sh ../../package_linux.sh
-        mv ./LibreSprite-anylinux-$ARCH.AppImage ../../
+        mv ./Besprited-anylinux-$ARCH.AppImage ../../
     - name: Archive production artifacts
       if: runner.arch == 'X64'
       uses: actions/upload-artifact@v4
       with:
-        name: libresprite-development-linux-x86_64
-        path: LibreSprite-anylinux-x86_64.AppImage
+        name: besprited-development-linux-x86_64
+        path: Besprited-anylinux-x86_64.AppImage
         if-no-files-found: error

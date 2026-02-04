@@ -17,16 +17,16 @@
 
 ## Platforms
 
-You can download installers from the [website](https://libresprite.github.io/).
-If you want to compile LibreSprite from source, continue reading.
+You can download installers from the [releases page](https://github.com/Veritaware/Besprited/releases).
+If you want to compile Besprited from source, continue reading.
 
-You should be able to compile LibreSprite on the following platforms:
+You should be able to compile Besprited on the following platforms:
 
 * Windows 10 + VS2015 Community Edition + Windows 10 SDK
 * Mac OS X 11.0 Big Sur + Xcode 7.3 + OS X 11.0 SDK
 * Linux + GCC 8.5 or higher with C++14 support
 
-To compile LibreSprite you will need:
+To compile Besprited you will need:
 
 * [CMake](http://www.cmake.org/) (3.4 or greater)
 * [Ninja](https://ninja-build.org)
@@ -36,20 +36,20 @@ To compile LibreSprite you will need:
 
 Clone the repository and its submodules using the following command:
 
-    git clone --recursive https://github.com/LibreSprite/LibreSprite
+    git clone --recursive https://github.com/Veritaware/Besprited
 
 (You can use [Git for Windows](https://git-for-windows.github.io/) to
 clone the repository on Windows.)
 
 To update an existing clone, use the following commands:
 
-    cd LibreSprite
+    cd Besprited
     git pull
     git submodule update --init --recursive
 
 ## Dependencies
 
-You'll need the following dependencies to compile LibreSprite:
+You'll need the following dependencies to compile Besprited:
 
 ### Linux dependencies
 
@@ -78,22 +78,22 @@ In a terminal, install the dependencies using brew:
 
 First, create the `build` directory with the following commands:
 
-    cd LibreSprite
+    cd Besprited
     mkdir build
     cd build
 
 Then following the platform-specific instructions for compiling below.
 
 The `build` directory will contain the results of the compilation process.
-If you want to build a fresh copy of LibreSprite, remove the `build` directory
+If you want to build a fresh copy of Besprited, remove the `build` directory
 and recompile.
 
 ### Linux details
 
-To compile LibreSprite, run the following commands:
+To compile Besprited, run the following commands:
 
     cmake -G Ninja ..
-    ninja libresprite
+    ninja besprited
 
 ### Windows details
 
@@ -103,26 +103,26 @@ Run the following in mingw32.exe:
 
 ### MacOS details
 
-To compile LibreSprite, run the following commands:
+To compile Besprited, run the following commands:
 ```
     cmake \
       -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk \
       -G Ninja \
       ..
-    ninja libresprite
+    ninja besprited
 ```
 ### Android details
 
 Before you can make an Android build, you must make a native build for your OS,
 so follow the appropriate instructions above. Once that is done, download
-https://github.com/LibreSprite/ls-android-deps as android/ in the LibreSprite
+https://github.com/LibreSprite/ls-android-deps as android/ in the Besprited
 directory. Now you can open the android subdirectory in Android Studio and build
-LibreSprite for Android.
+Besprited for Android.
 
 
 ## Installing
 
-Once you've finished compiling, you can install LibreSprite by running the
+Once you've finished compiling, you can install Besprited by running the
 following command from the `build` directory:
 
     ninja install

@@ -8,7 +8,7 @@
 
 if(UNIX AND NOT APPLE)
   # Desktop shortcut
-  install(FILES libresprite.desktop
+  install(FILES besprited.desktop
           DESTINATION share/applications)
 
   # Icons
@@ -16,15 +16,15 @@ if(UNIX AND NOT APPLE)
           DESTINATION share)
 
   # Package gallery integration
-  install(FILES io.github.libresprite.libresprite.metainfo.xml
+  install(FILES com.veritaware.besprited.metainfo.xml
           DESTINATION share/metainfo)
 
   # GNOME Thumbnailer
   install(FILES mime/aseprite.xml
           DESTINATION share/mime/packages)
-  install(PROGRAMS libresprite-thumbnailer
+  install(PROGRAMS besprited-thumbnailer
           DESTINATION bin)
-  install(FILES gnome/libresprite.thumbnailer
+  install(FILES gnome/besprited.thumbnailer
           DESTINATION share/thumbnailers)
 
   # Qt Thumbnailer

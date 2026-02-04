@@ -1,5 +1,6 @@
 # Aseprite     | Copyright (C) 2001-2016  David Capello
 # LibreSprite  | Copyright (C)      2022  LibreSprite contributors
+# Besprited    | Copyright (C)      2026  Veritaware
 
 cmake_minimum_required(VERSION 4.1)
 
@@ -16,8 +17,8 @@ endif()
 # Note: This needs to be done before the project command
 set(CMAKE_CONFIGURATION_TYPES "${CMAKE_BUILD_TYPE}" CACHE INTERNAL "internal")
 
-# LibreSprite project
-project(libresprite C CXX)
+# Besprited project
+project(besprited C CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)

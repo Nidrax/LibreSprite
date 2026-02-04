@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>LibreSprite</string>
+	<string>Besprited</string>
 
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
@@ -15,10 +15,10 @@
 	<string>1.0.0</string>
 
 	<key>CFBundleIdentifier</key>
-	<string>libresprite.libresprite.github</string>
+	<string>com.veritaware.besprited</string>
 
  	<key>CFBundleIconFile</key>
-	<string>libresprite.icns</string>
+	<string>besprited.icns</string>
 
   <key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -28,7 +28,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>libresprite.icns</string>
+			<string>besprited.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>JPEG image</string>
 			<key>CFBundleTypeRole</key>
@@ -41,7 +41,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>libresprite.icns</string>
+			<string>besprited.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>PNG image</string>
 			<key>CFBundleTypeRole</key>

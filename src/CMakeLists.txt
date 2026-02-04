@@ -1,5 +1,6 @@
 # Aseprite     | Copyright (C) 2001-2016  David Capello
 # LibreSprite  | Copyright (C)      2021  LibreSprite contributors
+# Besprited    | Copyright (C)      2026  Veritaware
 
 ######################################################################
 # Common definitions for all Aseprite libraries/projects
@@ -114,12 +115,12 @@ if(WIN32)
     main/settings.manifest)
 endif()
 
-add_executable(libresprite WIN32
+add_executable(besprited WIN32
   main/main.cpp
   ${win32_resources}
   ${x11_resources})
 
-target_link_libraries(libresprite ${KEEP_INJECTIONS_BEGIN}
+target_link_libraries(besprited ${KEEP_INJECTIONS_BEGIN}
   app-lib
   base-lib
   cfg-lib
@@ -148,16 +149,19 @@ target_link_libraries(libresprite ${KEEP_INJECTIONS_BEGIN}
   ${FREETYPE_LIBRARIES}
   ${PLATFORM_LIBS})
 
-install(TARGETS libresprite
+install(TARGETS besprited
   RUNTIME DESTINATION bin)
 
 install(DIRECTORY ../data
-  DESTINATION share/libresprite)
+  DESTINATION share/besprited)
 else()
-  add_custom_target(libresprite DEPENDS app-lib)
+  add_custom_target(besprited DEPENDS app-lib)
 endif()
 
-add_dependencies(libresprite copy_data)
+add_dependencies(besprited copy_data)
+
+# Add libresprite as an alias target for backward compatibility
+add_custom_target(libresprite DEPENDS besprited)
 
 ######################################################################
 # Tests

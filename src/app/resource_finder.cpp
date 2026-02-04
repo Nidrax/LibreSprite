@@ -90,20 +90,20 @@ void ResourceFinder::includeDataDir(const char* filename)
 #ifdef _WIN32
 
   snprintf(buf, sizeof(buf), "data/%s", filename);
-  includeHomeDir(buf); // %AppData%/LibreSprite/data/filename
+  includeHomeDir(buf); // %AppData%/Besprited/data/filename
   includeBinDir(buf);  // $BINDIR/data/filename
 
 #elif __APPLE__
 
   snprintf(buf, sizeof(buf), "data/%s", filename);
-  includeUserDir(buf); // $HOME/Library/Application Support/LibreSprite/data/filename
+  includeUserDir(buf); // $HOME/Library/Application Support/Besprited/data/filename
   includeBinDir(buf);  // $BINDIR/data/filename (outside the bundle)
 
   snprintf(buf, sizeof(buf), "../Resources/data/%s", filename);
   includeBinDir(buf);  // $BINDIR/../Resources/data/filename (inside a bundle)
 
-  // $BINDIR/../share/libresprite/data/filename (installed in /usr/ or /usr/local/)
-  snprintf(buf, sizeof(buf), "../share/libresprite/data/%s", filename);
+  // $BINDIR/../share/besprited/data/filename (installed in /usr/ or /usr/local/)
+  snprintf(buf, sizeof(buf), "../share/besprited/data/%s", filename);
   includeBinDir(buf);
   
 #else
@@ -111,11 +111,11 @@ void ResourceFinder::includeDataDir(const char* filename)
 
   const char* xdgdir = std::getenv("XDG_CONFIG_HOME");
   if((xdgdir) && (*xdgdir)) {
-    snprintf(buf, sizeof(buf), "%s/libresprite/data/%s", xdgdir, filename); // $XDG_CONFIG_HOME/libresprite/data/filename
+    snprintf(buf, sizeof(buf), "%s/besprited/data/%s", xdgdir, filename); // $XDG_CONFIG_HOME/besprited/data/filename
     addPath(buf);
   }
   else {
-    snprintf(buf, sizeof(buf), ".config/libresprite/data/%s", filename); // $HOME/.config/libresprite/data/filename
+    snprintf(buf, sizeof(buf), ".config/besprited/data/%s", filename); // $HOME/.config/besprited/data/filename
     includeHomeDir(buf);
   }
 
@@ -123,8 +123,8 @@ void ResourceFinder::includeDataDir(const char* filename)
   snprintf(buf, sizeof(buf), "data/%s", filename);
   includeBinDir(buf);
 
-  // $BINDIR/../share/libresprite/data/filename (installed in /usr/ or /usr/local/)
-  snprintf(buf, sizeof(buf), "../share/libresprite/data/%s", filename);
+  // $BINDIR/../share/besprited/data/filename (installed in /usr/ or /usr/local/)
+  snprintf(buf, sizeof(buf), "../share/besprited/data/%s", filename);
   includeBinDir(buf);
 
 #endif
@@ -134,10 +134,10 @@ void ResourceFinder::includeHomeDir(const char* filename)
 {
 #ifdef _WIN32
 
-  // %AppData%/LibreSprite/filename
+  // %AppData%/Besprited/filename
   wchar_t* env = _wgetenv(L"AppData");
   if (env) {
-    std::string path = base::join_path(base::to_utf8(env), "LibreSprite");
+    std::string path = base::join_path(base::to_utf8(env), "Besprited");
     path = base::join_path(path, filename);
     addPath(path);
     m_default = path;
@@ -170,13 +170,13 @@ void ResourceFinder::includeUserDir(const char* filename)
     includeBinDir(filename);
   }
   else {
-    // %AppData%/LibreSprite/filename
+    // %AppData%/Besprited/filename
     includeHomeDir(filename);
   }
 
 #elif __APPLE__
 
-  // $HOME/Library/Application Support/LibreSprite/filename
+  // $HOME/Library/Application Support/Besprited/filename
   addPath(
     base::join_path(
       base::join_path(base::get_lib_app_support_path(), PACKAGE),
@@ -187,11 +187,11 @@ void ResourceFinder::includeUserDir(const char* filename)
   char buf[4096];
   const char* xdgdir = std::getenv("XDG_CONFIG_HOME");
   if((xdgdir) && (*xdgdir)) {
-    snprintf(buf, sizeof(buf), "%s/libresprite/%s", xdgdir, filename); // $XDG_CONFIG_HOME/libresprite/filename
+    snprintf(buf, sizeof(buf), "%s/besprited/%s", xdgdir, filename); // $XDG_CONFIG_HOME/besprited/filename
     addPath(buf);
   }
   else
-    includeHomeDir((std::string(".config/libresprite/") + filename).c_str());   // $HOME/.config/libresprite/filename
+    includeHomeDir((std::string(".config/besprited/") + filename).c_str());   // $HOME/.config/besprited/filename
 
 
 #endif

@@ -8,7 +8,7 @@
       <label text="Please attach the following file:" />
       <link id="filename" text="" url="" />
       <label text="to a bug report on:" />
-      <entry readonly="true" text="https://github.com/LibreSprite/LibreSprite/issues" maxsize="256" />
+      <entry readonly="true" text="https://github.com/Veritaware/Besprited/issues" maxsize="256" />
       <label text="explaining what you was doing when the program crashed." />
     </vbox>
 
