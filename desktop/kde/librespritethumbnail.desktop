@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Service
-Name=LibreSprite Pixel Art
+Name=Besprited Pixel Art
 MimeType=image/bmp;image/gif;image/jpeg;image/png;image/x-pcx;image/x-tga;image/vnd.microsoft.icon;video/x-flic;image/webp;image/x-aseprite;
 X-KDE-ServiceTypes=ThumbCreator
-X-KDE-Library=librespritethumbnail
+X-KDE-Library=bespritedthumbnail
 CacheThumbnail=true
 ThumbnailerVersion=1

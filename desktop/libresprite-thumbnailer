@@ -6,14 +6,14 @@
 # Licensed under the the MIT License (https://opensource.org/licenses/MIT).
 
 if [ $# -ge 2 -a $# -lt 4 ]; then
-  mkdir -p /tmp/LibreSprite
+  mkdir -p /tmp/Besprited
   filename=${1//\//.}$RANDOM
   if [ $# -eq 2 ]; then
-    libresprite -b --frame-range "0,0" $1 --sheet /tmp/LibreSprite/$filename.png
+    besprited -b --frame-range "0,0" $1 --sheet /tmp/Besprited/$filename.png
   elif [ $# -eq 3 ]; then
-    libresprite -b --frame-range "0,0" $1 --shrink-to "$3,$3" --sheet /tmp/LibreSprite/$filename.png
+    besprited -b --frame-range "0,0" $1 --shrink-to "$3,$3" --sheet /tmp/Besprited/$filename.png
   fi
-  mkdir -p $(dirname "$2"); mv /tmp/LibreSprite/$filename.png $2;
+  mkdir -p $(dirname "$2"); mv /tmp/Besprited/$filename.png $2;
 else
-  echo "Parameters for libresprite thumbnailer are: inputfile outputfile [size]"
+  echo "Parameters for besprited thumbnailer are: inputfile outputfile [size]"
 fi

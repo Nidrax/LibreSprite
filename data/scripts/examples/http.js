@@ -1,6 +1,6 @@
 const methods = {
     init(){
-        storage.fetch("https://raw.githubusercontent.com/LibreSprite/LibreSprite/master/README.md", "read_me");
+        storage.fetch("https://raw.githubusercontent.com/Veritaware/Besprited/trunk/README.md", "read_me");
     },
     read_me_fetch(){
         console.log("Read me: " + storage.get("read_me"));
