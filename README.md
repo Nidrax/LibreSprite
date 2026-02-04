@@ -1,6 +1,9 @@
 ![Besprited](docs/branding.png)
 
 ## Introduction
+[![Discord](docs/btn_discord.png)](https://discord.gg/bKYnjMsp62)
+[![Ko-Fi](docs/btn_ko-fi.png)](https://ko-fi.com/veritaware)
+
 Besprited is a free and open source program for creating and animating 2D sprites.  It features:
 * Real-time animation previews.
 * Onion skinning.
@@ -28,7 +31,7 @@ In 2026 [Nidrax](https://github.com/Nidrax) forked the project under the [Verita
 organization to create his own opinionated version of the editor independently of LibreSprite's team design decisions
 and thus Besprited was born.
 
-#### And why *Besprited*?
+### And why *Besprited*?
 Because this project is BS. What other reason did you expect?
 
 ## Contributing
