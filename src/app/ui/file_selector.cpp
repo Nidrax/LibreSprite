@@ -558,6 +558,7 @@ again:
         goto again;
       }
     }
+#endif
 
     // does it not have extension? ...we should add the extension
     // selected in the filetype combo-box
@@ -753,16 +754,25 @@ void FileSelector::onNewFolder()
     if (currentFolder) {
       std::string dirname = window.name()->text();
 
+#ifdef _WIN32
       if (m_type == FileSelectorType::Save) {
+<<<<<<< HEAD
         if (const size_t fver = base::verify_filename(dirname); fver != std::string::npos)
         {
           Alert::show("Error<<Invalid folder name: \"%s\"<<The name contains an invalid '%c' character.||&OK",
             dirname.c_str(), dirname[fver]);
+=======
+        std::string fver = base::win32_verify_filename(dirname);
+        if (!fver.empty())
+        {
+          Alert::show("Error<<Invalid folder name: \"%s\"<<%s||&OK", dirname.c_str(), fver.c_str());
+>>>>>>> b783966a9 (Remove the path separator validation (I came to the conclusion it doesn't really make sense to forcefully disallow user from doing it))
 
           setVisible(true);
           return;
         }
       }
+#endif
 
       // Create the new directory
       try {
