@@ -28,6 +28,9 @@ In 2026 [Nidrax](https://github.com/Nidrax) forked the project under the [Verita
 organization to create his own opinionated version of the editor independently of LibreSprite's team design decisions
 and thus Besprited was born.
 
+### And why *Besprited*?
+Because this project is BS. What other reason did you expect?
+
 ## Contributing
 Feel free to contribute to the project! Check out the [contributing guidelines](CONTRIBUTING.md) to get started.
 
