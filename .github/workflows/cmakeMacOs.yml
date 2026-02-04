@@ -44,7 +44,6 @@ jobs:
 
     - name: Download & Lint Info.plist
       run: |
-        curl -L https://raw.githubusercontent.com/LibreSprite/LibreSprite/master/desktop/Info.plist --output desktop/Info.plist
         plutil desktop/Info.plist
 
     - name: Generate Makefiles
@@ -61,46 +60,46 @@ jobs:
 
     - name: Generate .icns
       run: |
-        mkdir libresprite.iconset
-        sips -z 16 16     data/icons/ase64.png --out libresprite.iconset/icon_16x16.png
-        sips -z 32 32     data/icons/ase64.png --out libresprite.iconset/icon_16x16@2x.png
-        sips -z 32 32     data/icons/ase64.png --out libresprite.iconset/icon_32x32.png
-        sips -z 64 64     data/icons/ase64.png --out libresprite.iconset/icon_32x32@2x.png
-        sips -z 128 128   data/icons/ase64.png --out libresprite.iconset/icon_128x128.png
-        sips -z 256 256   data/icons/ase64.png --out libresprite.iconset/icon_128x128@2x.png
-        sips -z 256 256   data/icons/ase64.png --out libresprite.iconset/icon_256x256.png
-        sips -z 512 512   data/icons/ase64.png --out libresprite.iconset/icon_256x256@2x.png
-        sips -z 512 512   data/icons/ase64.png --out libresprite.iconset/icon_512x512.png
-        sips -z 1024 1024 data/icons/ase64.png --out libresprite.iconset/icon_512x512@2x.png
-        iconutil -c icns -o libresprite.icns libresprite.iconset
-        rm -R libresprite.iconset
+        mkdir besprited.iconset
+        sips -z 16 16     data/icons/ase64.png --out besprited.iconset/icon_16x16.png
+        sips -z 32 32     data/icons/ase64.png --out besprited.iconset/icon_16x16@2x.png
+        sips -z 32 32     data/icons/ase64.png --out besprited.iconset/icon_32x32.png
+        sips -z 64 64     data/icons/ase64.png --out besprited.iconset/icon_32x32@2x.png
+        sips -z 128 128   data/icons/ase64.png --out besprited.iconset/icon_128x128.png
+        sips -z 256 256   data/icons/ase64.png --out besprited.iconset/icon_128x128@2x.png
+        sips -z 256 256   data/icons/ase64.png --out besprited.iconset/icon_256x256.png
+        sips -z 512 512   data/icons/ase64.png --out besprited.iconset/icon_256x256@2x.png
+        sips -z 512 512   data/icons/ase64.png --out besprited.iconset/icon_512x512.png
+        sips -z 1024 1024 data/icons/ase64.png --out besprited.iconset/icon_512x512@2x.png
+        iconutil -c icns -o besprited.icns besprited.iconset
+        rm -R besprited.iconset
 
     - name: Build Apple Bundle
       run: |
         mkdir bundle/
-        mkdir bundle/libresprite.app
-        mkdir bundle/libresprite.app/Contents
-        mkdir bundle/libresprite.app/Contents/libs
-        mkdir bundle/libresprite.app/Contents/MacOS
-        mkdir bundle/libresprite.app/Contents/Resources
-        cp ./build/bin/libresprite ./bundle/libresprite.app/Contents/MacOS/
-        cp -r ./build/bin/data/ ./bundle/libresprite.app/Contents/MacOS/data/
-        cp ./libresprite.icns ./bundle/libresprite.app/Contents/Resources/
-        cp ./desktop/Info.plist ./bundle/libresprite.app/Contents/
-        chmod +x ./bundle/libresprite.app/Contents/MacOS/libresprite
+        mkdir bundle/besprited.app
+        mkdir bundle/besprited.app/Contents
+        mkdir bundle/besprited.app/Contents/libs
+        mkdir bundle/besprited.app/Contents/MacOS
+        mkdir bundle/besprited.app/Contents/Resources
+        cp ./build/bin/besprited ./bundle/besprited.app/Contents/MacOS/
+        cp -r ./build/bin/data/ ./bundle/besprited.app/Contents/MacOS/data/
+        cp ./besprited.icns ./bundle/besprited.app/Contents/Resources/
+        cp ./desktop/Info.plist ./bundle/besprited.app/Contents/
+        chmod +x ./bundle/besprited.app/Contents/MacOS/besprited
 
     - name: Put Dylibs
       run: |
-        dylibbundler -od -b -ns -x ./bundle/libresprite.app/Contents/MacOS/libresprite -d ./bundle/libresprite.app/Contents/libs/
+        dylibbundler -od -b -ns -x ./bundle/besprited.app/Contents/MacOS/besprited -d ./bundle/besprited.app/Contents/libs/
 
     - name: Create DMG
       run: |
-        codesign --force --deep -s - ./bundle/libresprite.app
-        hdiutil create -volname "LibreSprite" -srcfolder bundle -ov -format UDZO "libresprite.dmg"
+        codesign --force --deep -s - ./bundle/besprited.app
+        hdiutil create -volname "Besprited" -srcfolder bundle -ov -format UDZO "besprited.dmg"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: macos-arm64
-        path: libresprite.dmg
+        path: besprited.dmg
         if-no-files-found: error
