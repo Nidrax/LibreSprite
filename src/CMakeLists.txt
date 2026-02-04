@@ -160,6 +160,9 @@ endif()
 
 add_dependencies(besprited copy_data)
 
+# Add libresprite as an alias target for backward compatibility
+add_custom_target(libresprite DEPENDS besprited)
+
 ######################################################################
 # Tests
 

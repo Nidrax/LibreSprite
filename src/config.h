@@ -30,7 +30,7 @@
 #define WEBSITE                 "https://github.com/Veritaware/Besprited/"
 #define WEBSITE_DOWNLOAD        WEBSITE "releases/"
 #define WEBSITE_CONTRIBUTORS    WEBSITE "graphs/contributors/"
-#define COPYRIGHT               "Copyright (C) 2001-2016 David Capello, 2016-2024 LibreSprite contributors"
+#define COPYRIGHT               "Copyright (C) 2001-2016 David Capello, 2016-2025 LibreSprite contributors, 2026 Veritaware"
 
 #include "base/base.h"
 #include "base/debug.h"
