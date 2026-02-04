@@ -61,7 +61,7 @@ protected:
 
 DevConsoleView::DevConsoleView()
   : Box(VERTICAL)
-  , m_textBox("Welcome to LibreSprite Scripting Console\n(Experimental)", LEFT)
+  , m_textBox("Welcome to Besprited Scripting Console\n(Experimental)", LEFT)
   , m_label(">")
   , m_entry(new CommmandEntry)
 {
