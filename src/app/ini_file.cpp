@@ -39,10 +39,10 @@ static std::vector<cfg::CfgFile*> g_configs;
 ConfigModule::ConfigModule()
 {
   ResourceFinder rf;
-  rf.includeUserDir("libresprite.ini");
+  rf.includeUserDir("besprited.ini");
 
-  // getFirstOrCreateDefault() will create the LibreSprite directory
-  // inside the OS configuration folder (~/.config/libresprite/, etc.).
+  // getFirstOrCreateDefault() will create the Besprited directory
+  // inside the OS configuration folder (~/.config/besprited/, etc.).
   std::string fn = rf.getFirstOrCreateDefault();
 
   set_config_file(fn.c_str());

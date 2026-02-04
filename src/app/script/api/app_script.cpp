@@ -76,7 +76,7 @@ public:
       .doc("read-only. Returns an object with functions for running commands.");
 
     addProperty("version", []{return script::Value{VERSION};})
-      .doc("read-only. Returns LibreSprite's current version as a string.");
+      .doc("read-only. Returns Besprited's current version as a string.");
 
     addProperty("platform", []() -> std::string {
       #ifdef EMSCRIPTEN

@@ -19,13 +19,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "https://github.com/LibreSprite/LibreSprite"
-            VALUE "FileDescription", "LibreSprite - Animated sprites editor & pixel art tool"
+            VALUE "Comments", "https://github.com/veritaware/Besprited"
+            VALUE "FileDescription", "Besprited - Animated sprites editor & pixel art tool"
             VALUE "FileVersion", "1,0,0,0"
-            VALUE "InternalName", "libresprite"
-            VALUE "LegalCopyright", "Copyright (C) 2001-2016 by David Capello, 2016-2023 LibreSprite contributors"
-            VALUE "OriginalFilename", "libresprite.exe"
-            VALUE "ProductName", "LIBRESPRITE"
+            VALUE "InternalName", "besprited"
+            VALUE "LegalCopyright", "Copyright (C) 2001-2016 by David Capello, 2016-2023 Besprited contributors"
+            VALUE "OriginalFilename", "besprited.exe"
+            VALUE "ProductName", "BESPRITED"
             VALUE "ProductVersion", "1,1,0,0"
         END
     END

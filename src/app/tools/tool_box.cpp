@@ -177,7 +177,7 @@ PointShape* ToolBox::getPointShapeById(const std::string& id)
 
 void ToolBox::loadTools()
 {
-  LOG("Loading LibreSprite tools\n");
+  LOG("Loading Besprited tools\n");
 
   XmlDocumentRef doc(GuiXml::instance()->doc());
   tinyxml2::XMLHandle handle(doc.get());
