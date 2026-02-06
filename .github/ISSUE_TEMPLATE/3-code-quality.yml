@@ -1,6 +1,6 @@
 name: Code quality
 description: Have you seen bad code? Click here
-labels: ["💩code-ql"]
+labels: ["💩code-quality"]
 projects: ["veritaware/6"]
 type: Task
 body:
