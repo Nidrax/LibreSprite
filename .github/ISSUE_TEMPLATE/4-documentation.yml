@@ -1,6 +1,6 @@
 name: Documentation
 description: Something wrong with the docs? Tell us here
-labels: ["docs"]
+labels: ["📑docs"]
 projects: ["veritaware/6"]
 assignees:
   - copilot
