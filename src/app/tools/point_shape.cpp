@@ -73,7 +73,7 @@ void PointShape::doInkHline(int x1, int y, int x2, ToolLoop* loop)
     if (x2 >= loop->getDstImage()->width())
       x2 = loop->getDstImage()->width()-1;
 
-    if (x2-x1+1 < 1)
+    if (x1 >= x2)
       return;
 
     loop->getInk()->inkHline(x1, y, x2, loop);
