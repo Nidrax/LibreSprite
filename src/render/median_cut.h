@@ -245,7 +245,7 @@ namespace render {
             boxes.push(box2);
             return true;
           }
-          else if (totalPoints1-planePoints > 0) {
+          else if (totalPoints1 > planePoints) {
             Box box1(AxisSplitter::box1(*this, i-1));
             Box box2(AxisSplitter::box2(*this, i));
             box1.points = totalPoints1-planePoints;
