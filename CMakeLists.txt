@@ -371,3 +371,74 @@ add_subdirectory(src)
 # Third party libraries
 
 add_subdirectory(third_party)
+
+######################################################################
+# Static code analysis targets
+
+# cppcheck target
+find_program(CPPCHECK_EXECUTABLE cppcheck)
+if(CPPCHECK_EXECUTABLE)
+  add_custom_target(cppcheck
+    COMMAND ${CPPCHECK_EXECUTABLE}
+      --enable=all
+      --suppress=missingIncludeSystem
+      --suppress=unmatchedSuppression
+      --inline-suppr
+      --error-exitcode=1
+      --std=c++20
+      -I ${CMAKE_SOURCE_DIR}/src
+      -I ${CMAKE_SOURCE_DIR}/third_party
+      ${CMAKE_SOURCE_DIR}/src
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Running cppcheck static analysis"
+    VERBATIM
+  )
+  message(STATUS "cppcheck found: ${CPPCHECK_EXECUTABLE}")
+else()
+  message(STATUS "cppcheck not found - target 'cppcheck' will not be available")
+endif()
+
+# clang-tidy target
+find_program(CLANG_TIDY_EXECUTABLE clang-tidy)
+if(CLANG_TIDY_EXECUTABLE)
+  # Get list of source files
+  file(GLOB_RECURSE ALL_SOURCE_FILES 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.cc
+    ${CMAKE_SOURCE_DIR}/src/*.c
+  )
+  
+  add_custom_target(clang-tidy
+    COMMAND ${CLANG_TIDY_EXECUTABLE}
+      -p=${CMAKE_BINARY_DIR}
+      ${ALL_SOURCE_FILES}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Running clang-tidy static analysis"
+    VERBATIM
+  )
+  message(STATUS "clang-tidy found: ${CLANG_TIDY_EXECUTABLE}")
+else()
+  message(STATUS "clang-tidy not found - target 'clang-tidy' will not be available")
+endif()
+
+# gcc-analyzer target
+# Note: This target builds the 'besprited' executable with GCC's -fanalyzer flag.
+# If analyzing different targets is needed, modify the --target argument below.
+if(CMAKE_COMPILER_IS_GNUCXX)
+  add_custom_target(gcc-analyzer
+    COMMAND ${CMAKE_COMMAND} -E echo "Building with GCC -fanalyzer..."
+    COMMAND ${CMAKE_COMMAND}
+      -DCMAKE_BUILD_TYPE=Debug
+      -DCMAKE_CXX_FLAGS="-fanalyzer"
+      -DCMAKE_C_FLAGS="-fanalyzer"
+      -B${CMAKE_BINARY_DIR}/analyzer_build
+      -S${CMAKE_SOURCE_DIR}
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/analyzer_build --target besprited
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Running GCC with -fanalyzer flag"
+    VERBATIM
+  )
+  message(STATUS "GCC compiler found: ${CMAKE_CXX_COMPILER}")
+else()
+  message(STATUS "GCC compiler not found - target 'gcc-analyzer' will not be available")
+endif()

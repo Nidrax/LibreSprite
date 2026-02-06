@@ -14,6 +14,7 @@
   * [MacOS details](#macos-details)
   * [Android details](#android-details)
 * [Installing](#installing)
+* [Static Code Analysis](#static-code-analysis)
 
 ## Platforms
 
@@ -126,3 +127,47 @@ Once you've finished compiling, you can install Besprited by running the
 following command from the `build` directory:
 
     ninja install
+
+## Static Code Analysis
+
+Besprited includes build targets for running static code analysis tools. These targets help maintain code quality by detecting potential bugs, security vulnerabilities, and code style issues.
+
+### Available Analysis Targets
+
+From the `build` directory, you can run the following analysis targets:
+
+**cppcheck** - Runs cppcheck static analysis:
+
+    cmake --build . --target cppcheck
+
+Requires: [cppcheck](http://cppcheck.sourceforge.net/) to be installed on your system.
+
+**clang-tidy** - Runs clang-tidy static analysis:
+
+    cmake --build . --target clang-tidy
+
+Requires: clang-tidy to be installed on your system.
+
+**gcc-analyzer** - Builds with GCC's `-fanalyzer` flag:
+
+    cmake --build . --target gcc-analyzer
+
+Requires: GCC 10 or higher (which includes the `-fanalyzer` feature).
+
+### Installing Analysis Tools
+
+**Linux (Debian/Ubuntu):**
+
+    sudo apt-get install cppcheck clang-tidy gcc-10 g++-10
+
+**Linux (Fedora):**
+
+    sudo dnf install cppcheck clang-tools-extra gcc
+
+**MacOS:**
+
+    brew install cppcheck llvm gcc
+
+**Windows (MSYS2):**
+
+    pacman -S mingw-w64-i686-cppcheck mingw-w64-i686-clang-tools-extra mingw-w64-i686-gcc
