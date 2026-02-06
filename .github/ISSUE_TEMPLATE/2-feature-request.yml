@@ -1,6 +1,6 @@
 name: Feature request
 description: Suggest an idea for this project
-labels: ["feature"]
+labels: ["🐞feature"]
 projects: ["veritaware/6"]
 type: Feature
 body:
