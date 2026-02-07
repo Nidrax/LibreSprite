@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'NO_SW_CHANGE') && !contains(github.event.pull_request.body, 'NO_SW_CHANGE') }}
     steps:
     - uses: actions/checkout@v4
       with:
