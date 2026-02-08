@@ -39,11 +39,34 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: 'true'
+    - name: Check for git tag
+      id: check_tag
+      shell: bash
+      run: |
+        if git describe --exact-match --tags 2>/dev/null; then
+          echo "has_tag=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_tag=false" >> $GITHUB_OUTPUT
+        fi
+    - name: Get short commit hash
+      id: commit
+      shell: bash
+      run: |
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        echo "short_hash=$SHORT_HASH" >> $GITHUB_OUTPUT
+    - name: Update config.h with commit hash
+      shell: bash
+      run: |
+        sed -i 's/#define COMMIT  "local build"/#define COMMIT  "${{ steps.commit.outputs.short_hash }}"/g' src/config.h
     - shell: msys2 {0}
       run: |
         mkdir build
         cd build
-        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DUSE_V8_SANDBOX=ON ..
+        if [ "${{ steps.check_tag.outputs.has_tag }}" = "true" ]; then
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DUSE_V8_SANDBOX=ON -DRELEASE_TAG=ON ..
+        else
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DUSE_V8_SANDBOX=ON ..
+        fi
         make -j 4
         cd ..
         rm build/bin/gen.exe
