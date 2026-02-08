@@ -41,12 +41,36 @@ jobs:
     - name: Download & Lint Info.plist
       run: |
         plutil desktop/Info.plist
+    - name: Check for git tag
+      id: check_tag
+      run: |
+        if git describe --exact-match --tags 2>/dev/null; then
+          echo "has_tag=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_tag=false" >> $GITHUB_OUTPUT
+        fi
+    - name: Get short commit hash
+      id: commit
+      run: |
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        echo "short_hash=$SHORT_HASH" >> $GITHUB_OUTPUT
+    - name: Update config.h with commit hash
+      run: |
+        sed -i '' 's/"local build"/"${{ steps.commit.outputs.short_hash }}"/g' src/config.h
     - name: Generate Makefiles
       run: |
-        cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
-          -DUSE_V8_SANDBOX=ON \
-          -DCMAKE_OSX_ARCHITECTURES=arm64 \
-          -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+        if [ "${{ steps.check_tag.outputs.has_tag }}" = "true" ]; then
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DUSE_V8_SANDBOX=ON \
+            -DRELEASE_TAG=ON \
+            -DCMAKE_OSX_ARCHITECTURES=arm64 \
+            -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+        else
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DUSE_V8_SANDBOX=ON \
+            -DCMAKE_OSX_ARCHITECTURES=arm64 \
+            -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+        fi
     - name: Build
       run: |
         cmake --build build/ --parallel 3
