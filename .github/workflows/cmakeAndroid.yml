@@ -29,9 +29,15 @@ jobs:
         sudo apt-get update
         sudo apt-get install g++ libcurl4-gnutls-dev libfreetype6-dev libgif-dev libjpeg-dev libpixman-1-dev libpng-dev libsdl2-dev libsdl2-image-dev libtinyxml2-dev libx11-dev libxcursor-dev ninja-build zlib1g-dev libarchive-dev
         pip install cmake
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        sed -i "s/\"local build\"/\"$SHORT_HASH\"/g" src/config.h
         mkdir build
         cd build
-        cmake -G Ninja -DGEN_ONLY=ON ..
+        if git describe --exact-match --tags 2>/dev/null; then
+          cmake -G Ninja -DGEN_ONLY=ON -DRELEASE_TAG=ON ..
+        else
+          cmake -G Ninja -DGEN_ONLY=ON ..
+        fi
         ninja
         cd ..
     - name: Setup Submodule

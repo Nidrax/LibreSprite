@@ -32,8 +32,31 @@ jobs:
       run: git submodule update --init --recursive
     - name: mkdir
       run: mkdir build
+    - name: check for git tag
+      id: check_tag
+      run: |
+        if git describe --exact-match --tags 2>/dev/null; then
+          echo "has_tag=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_tag=false" >> $GITHUB_OUTPUT
+        fi
+    - name: Get short commit hash
+      id: commit
+      run: |
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        echo "short_hash=$SHORT_HASH" >> $GITHUB_OUTPUT
+    - name: Update config.h with commit hash
+      run: |
+        sed -i 's/"local build"/"${{ steps.commit.outputs.short_hash }}"/g' src/config.h
     - name: cmake
-      run: cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja besprited
+      run: |
+        cd build
+        if [ "${{ steps.check_tag.outputs.has_tag }}" = "true" ]; then
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DRELEASE_TAG=ON ..
+        else
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+        fi
+        ninja besprited
     - name: appimage
       run: |
         cd build/bin
