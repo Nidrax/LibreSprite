@@ -31,10 +31,10 @@ jobs:
       run: git submodule update --init --recursive
     
     - name: Configure CMake
-      run: mkdir build && cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+      run: mkdir build && cd build && cmake -G Ninja -DGEN_ONLY=ON ..
 
     - name: Build the project (required to generate *.xml.h files)
-      run: cd build && ninja besprited
+      run: cd build && ninja
     
     - name: Run cppcheck
       run: cd build && cmake --build . --target cppcheck
@@ -61,10 +61,10 @@ jobs:
       run: git submodule update --init --recursive
     
     - name: Configure CMake
-      run: mkdir build && cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+      run: mkdir build && cd build && cmake -G Ninja -DGEN_ONLY=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 
     - name: Build the project (required to generate *.xml.h files)
-      run: cd build && ninja besprited
+      run: cd build && ninja
     
     - name: Run clang-tidy
       run: cd build && cmake --build . --target clang-tidy
@@ -98,10 +98,10 @@ jobs:
       run: git submodule update --init --recursive
     
     - name: Configure CMake
-      run: mkdir build && cd build && cmake -G Ninja -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+      run: mkdir build && cd build && cmake -G Ninja -DGEN_ONLY=ON ..
 
     - name: Build the project (required to generate *.xml.h files)
-      run: cd build && ninja besprited
+      run: cd build && ninja
     
     - name: Run GCC with -fanalyzer
       run: cd build && cmake --build . --target gcc-analyzer
