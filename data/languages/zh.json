@@ -745,7 +745,7 @@
  "X:": "X：",
  "Y:": "Y：",
  "Yes": "&是",
- "You are going to enter in \"Advanced Mode\".": "You are going to enter in \"Advanced Mode\".",
+ "You are going to enter in \"Advanced Mode\".": "您即将进入“高级模式”。",
  "You are using a development version.": "您使用的是开发版本。",
  "You must restart the program to see your changes to:": "您必须重新启动程序以查看更改：",
  "Zoom 100%": "缩放100%",
@@ -768,6 +768,5 @@
  "colors or less": "颜色或更少",
  "explaining what you was doing when the program crashed.": "解释一下程序崩溃时你正在做什么。",
  "https://github.com/Veritaware/Besprited/issues": "https://github.com/Veritaware/Besprited/issues",
- "to a bug report on:": "提交一份错误报告：",
- "You are going to enter in \\\"Advanced Mode\\\".": "您即将进入“高级模式”。"
+ "to a bug report on:": "提交一份错误报告："
 }

@@ -745,7 +745,7 @@
  "X:": "X:",
  "Y:": "Y:",
  "Yes": "&نعم",
- "You are going to enter in \"Advanced Mode\".": "You are going to enter in \"Advanced Mode\".",
+ "You are going to enter in \"Advanced Mode\".": "ستدخل إلى \"الوضع المتقدم\".",
  "You are using a development version.": "أنت تستخدم نسخة تجريبية.",
  "You must restart the program to see your changes to:": "يجب إعادة تشغيل البرنامج لرؤية تغييراتك على:",
  "Zoom 100%": "تكبير 100%",
@@ -768,6 +768,5 @@
  "colors or less": "ألوان أو أقل",
  "explaining what you was doing when the program crashed.": "شرح ما كنت تفعله عندما تعطل البرنامج.",
  "https://github.com/Veritaware/Besprited/issues": "https://github.com/Veritaware/Besprited/issues",
- "to a bug report on:": "إلى تقرير عن خطأ في:",
- "You are going to enter in \\\"Advanced Mode\\\".": "ستدخل إلى \"الوضع المتقدم\"."
+ "to a bug report on:": "إلى تقرير عن خطأ في:"
 }

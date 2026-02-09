@@ -745,7 +745,7 @@
  "X:": "X:",
  "Y:": "Y:",
  "Yes": "&हाँ",
- "You are going to enter in \"Advanced Mode\".": "You are going to enter in \"Advanced Mode\".",
+ "You are going to enter in \"Advanced Mode\".": "आप \"एडवांस्ड मोड\" में प्रवेश करने जा रहे हैं।",
  "You are using a development version.": "आप डेवलपमेंट वर्जन का उपयोग कर रहे हैं।",
  "You must restart the program to see your changes to:": "अपनी परिवर्तनों को देखने के लिए आपको कार्यक्रम को पुनरारंभ करना होगा:",
  "Zoom 100%": "ज़ूम 100%",
@@ -768,6 +768,5 @@
  "colors or less": "रंग या उससे कम",
  "explaining what you was doing when the program crashed.": "यह बताएं कि प्रोग्राम क्रैश होने के समय आप क्या कर रहे थे।",
  "https://github.com/Veritaware/Besprited/issues": "https://github.com/Veritaware/Besprited/issues",
- "to a bug report on:": "इस विषय पर बग रिपोर्ट के लिए:",
- "You are going to enter in \\\"Advanced Mode\\\".": "आप \"एडवांस्ड मोड\" में प्रवेश करने जा रहे हैं।"
+ "to a bug report on:": "इस विषय पर बग रिपोर्ट के लिए:"
 }
