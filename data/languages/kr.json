@@ -743,7 +743,7 @@
  "X:": "X:",
  "Y:": "Y:",
  "Yes": "&예",
- "You are going to enter in \"Advanced Mode\".": "You are going to enter in \"Advanced Mode\".",
+ "You are going to enter in \"Advanced Mode\".": "당신은 \"고급 모드\"로 진입하려고 합니다.",
  "You are using a development version.": "현재 개발 버전을 사용 중입니다.",
  "You must restart the program to see your changes to:": "다음 변경 사항을 보려면 프로그램을 다시 시작해야 합니다:",
  "Zoom 100%": "줌 100%",
@@ -766,6 +766,5 @@
  "colors or less": "색상 또는 그 이하",
  "explaining what you was doing when the program crashed.": "프로그램이 충돌했을 때 무슨 작업을 하고 있었는지 설명해 주세요.",
  "https://github.com/Veritaware/Besprited/issues": "https://github.com/Veritaware/Besprited/issues",
- "to a bug report on:": "버그 신고 관련:",
- "You are going to enter in \\\"Advanced Mode\\\".": "\"고급 모드\"로 진입하려고 합니다."
+ "to a bug report on:": "버그 신고 관련:"
 }

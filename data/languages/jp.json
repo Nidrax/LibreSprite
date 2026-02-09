@@ -713,7 +713,7 @@
  "With this option you can recover your documents\nif the program finalizes unexpectedly.": "このオプションを使用すると、プログラムが予期せず終了した場合にドキュメントを復元できます。",
  "X:": "X:",
  "Y:": "Y:",
- "You are going to enter in \"Advanced Mode\".": "You are going to enter in \"Advanced Mode\".",
+ "You are going to enter in \"Advanced Mode\".": "\"詳細モード\"に入ります。",
  "You are using a development version.": "開発バージョンを使用しています。",
  "You must restart the program to see your changes to:": "変更を反映させるにはプログラムを再起動する必要があります：",
  "Zoom 100%": "ズーム 100%",
@@ -736,6 +736,5 @@
  "colors or less": "色数以下",
  "explaining what you was doing when the program crashed.": "プログラムがクラッシュしたときに何をしていたかを説明します。",
  "https://github.com/Veritaware/Besprited/issues": "https://github.com/Veritaware/Besprited/issues",
- "to a bug report on:": "バグレポート:",
- "You are going to enter in \\\"Advanced Mode\\\".": "\\\"詳細モード\\\"に入ります。"
+ "to a bug report on:": "バグレポート:"
 }
