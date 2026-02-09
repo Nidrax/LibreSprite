@@ -2,8 +2,6 @@
 
 This directory contains the internationalization (i18n) string extraction tool.
 
-## Overview
-
 The `update_i18n.py` script automatically scans the codebase to find strings that need translation and updates the language JSON files with any missing entries.
 
 ## Usage

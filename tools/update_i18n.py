@@ -1,31 +1,11 @@
 #!/usr/bin/env python3
-"""
-I18N String Extraction Tool
-
-This script scans C++ source files and XML widget files to extract strings that need
-internationalization, then updates the language JSON files with any missing entries.
-
-IMPORTANT NOTES:
-- This tool extracts DIRECT string literals only (e.g., app::i18n("text")).
-- For XML files, ampersands (&) are stripped from text attributes since Widget::setI18N()
-  removes them before using the text as an i18n key.
-- For strings passed via variables or function returns, use the runtime DEBUG mechanism:
-  * Build with _DEBUG defined
-  * Run the application and exercise all features
-  * Missing strings will be logged to stdout in JSON format
-  * Copy the logged strings into language files
-
-Usage:
-    python3 tools/update_i18n.py
-"""
 
 import json
-import os
 import re
 import sys
 from pathlib import Path
-from typing import Set, Dict
-import xml.etree.ElementTree as ET
+from typing import Set
+import xml.etree.ElementTree as ETree
 
 
 class I18nExtractor:
@@ -46,7 +26,7 @@ class I18nExtractor:
         # Pattern to match app::i18n("string") - direct string literals
         # This handles both single and double quotes, and escaped quotes
         direct_pattern = re.compile(
-            r'app::i18n\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*(?:,|\))',
+            r'app::i18n\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*[,)]',
             re.MULTILINE
         )
         
@@ -89,7 +69,7 @@ class I18nExtractor:
         
         for xml_file in xml_files:
             try:
-                tree = ET.parse(xml_file)
+                tree = ETree.parse(xml_file)
                 root = tree.getroot()
                 
                 # Find all elements with text attribute
