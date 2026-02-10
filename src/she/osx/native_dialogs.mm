@@ -5,6 +5,7 @@
 // Read LICENSE.txt for more information.
 
 #include <Cocoa/Cocoa.h>
+#include <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #include <vector>
 
 #include "she/display.h"
@@ -32,7 +33,7 @@
 - (id)init
 {
   if (self = [super init]) {
-    result = NSFileHandlingPanelCancelButton;
+    result = NSModalResponseCancel;
   }
   return self;
 }
@@ -149,7 +150,26 @@ public:
       [types addObject:[NSString stringWithUTF8String:m_defExtension.c_str()]];
     for (const auto& filter : m_filters)
       [types addObject:[NSString stringWithUTF8String:filter.second.c_str()]];
-    [panel setAllowedFileTypes:types];
+    
+    // Convert file extensions to UTType objects for allowedContentTypes
+    if (@available(macOS 11.0, *)) {
+      NSMutableArray<UTType*>* contentTypes = [[NSMutableArray alloc] init];
+      for (NSString* ext in types) {
+        UTType* type = [UTType typeWithFilenameExtension:ext];
+        if (type) {
+          [contentTypes addObject:type];
+        }
+      }
+      if ([contentTypes count] > 0) {
+        [panel setAllowedContentTypes:contentTypes];
+      }
+#if !__has_feature(objc_arc)
+      [contentTypes release];
+#endif
+    } else {
+      // Fallback for older macOS versions (should not be needed for macOS 11.0+)
+      [panel setAllowedFileTypes:types];
+    }
 
     OpenSaveHelper* helper = [[OpenSaveHelper alloc] init];
     [helper setPanel:panel];
@@ -157,7 +177,7 @@ public:
     [helper performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:YES];
 
     bool retValue;
-    if ([helper result] == NSFileHandlingPanelOKButton) {
+    if ([helper result] == NSModalResponseOK) {
       NSURL* url = [panel URL];
       m_filename = [[url path] UTF8String];
       retValue = true;
