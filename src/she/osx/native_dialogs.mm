@@ -167,7 +167,7 @@ public:
       [contentTypes release];
 #endif
     } else {
-      // Fallback for older macOS versions (should not be needed for macOS 11.0+)
+      // Fallback for macOS versions prior to 11.0
       [panel setAllowedFileTypes:types];
     }
 
