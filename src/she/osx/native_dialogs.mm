@@ -153,7 +153,11 @@ public:
     
     // Convert file extensions to UTType objects for allowedContentTypes
     if (@available(macOS 11.0, *)) {
+#if __has_feature(objc_arc)
       NSMutableArray<UTType*>* contentTypes = [[NSMutableArray alloc] init];
+#else
+      NSMutableArray<UTType*>* contentTypes = [[[NSMutableArray alloc] init] autorelease];
+#endif
       for (NSString* ext in types) {
         UTType* type = [UTType typeWithFilenameExtension:ext];
         if (type) {
@@ -163,12 +167,10 @@ public:
       if ([contentTypes count] > 0) {
         [panel setAllowedContentTypes:contentTypes];
       } else {
-        // If no UTTypes could be created, fall back to the old API
+        // If no UTTypes could be created, fall back to the deprecated API
+        // which is still supported on macOS 11.0+ for compatibility
         [panel setAllowedFileTypes:types];
       }
-#if !__has_feature(objc_arc)
-      [contentTypes release];
-#endif
     } else {
       // Fallback for macOS versions prior to 11.0
       [panel setAllowedFileTypes:types];
