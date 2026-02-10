@@ -162,6 +162,9 @@ public:
       }
       if ([contentTypes count] > 0) {
         [panel setAllowedContentTypes:contentTypes];
+      } else {
+        // If no UTTypes could be created, fall back to the old API
+        [panel setAllowedFileTypes:types];
       }
 #if !__has_feature(objc_arc)
       [contentTypes release];
