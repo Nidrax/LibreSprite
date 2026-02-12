@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2015  David Capello
+// Aseprite    | Copyright (C) 2001-2015  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,8 @@
 #include "ui/alert.h"
 
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -63,9 +65,9 @@ void LoadMaskCommand::onExecute(Context* context)
   std::string filename = m_filename;
 
   if (context->isUIAvailable()) {
-    filename = app::show_file_selector(
-      "Load .msk File", filename, "msk",
-      FileSelectorType::Open);
+    filename = show_file_selector(
+      i18n("Load .msk File"), filename, "msk", FileSelectorType::Open
+    );
 
     if (filename.empty())
       return;

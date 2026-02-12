@@ -1,4 +1,4 @@
-// LibreSprite | Copyright (C)      2023  LibreSprite contributors
+// LibreSprite | Copyright (C) 2023-2026  LibreSprite contributors
 //
 // This file is released under the terms of the MIT license.
 // Read LICENSE.txt for more information.
@@ -14,6 +14,7 @@
 #include "app/commands/commands.h"
 #include "app/commands/params.h"
 #include "app/modules/editors.h"
+#include "app/modules/i18n.h"
 #include "app/pref/preferences.h"
 #include "app/ui/editor/editor.h"
 #include "base/convert_to.h"
@@ -78,10 +79,13 @@ namespace app {
       auto document = context->activeDocument();
 
       if (!document->isAssociatedToFile() || document->isModified()) {
-        ui::Alert::show("Notice<<You must save before you share!||&OK");
+        ui::Alert::show((
+          i18n("Notice") + "<<" +
+          i18n("You must save before you share!") + "||" +
+          i18n("OK")
+        ).c_str());
         auto saveAsCommand = app::CommandsModule::instance()->getCommandByName(CommandId::SaveFile);
         context->executeCommand(saveAsCommand);
-        return;
       }
 
 #if defined(ANDROID)

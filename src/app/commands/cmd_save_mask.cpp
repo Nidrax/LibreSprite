@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2015  David Capello
+// Aseprite    | Copyright (C) 2001-2015  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -12,6 +12,7 @@
 #include "app/commands/command.h"
 #include "app/context_access.h"
 #include "app/file_selector.h"
+#include "app/modules/i18n.h"
 #include "app/util/msk_file.h"
 #include "base/fs.h"
 #include "base/path.h"
@@ -50,12 +51,17 @@ void SaveMaskCommand::onExecute(Context* context)
   std::string filename = "default.msk";
 
   filename = app::show_file_selector(
-    "Save .msk File", filename, "msk", FileSelectorType::Save);
+    i18n("Save .msk File"), filename, "msk", FileSelectorType::Save);
   if (filename.empty())
     return;
 
   if (save_msk_file(document->mask(), filename.c_str()) != 0)
-    ui::Alert::show("Error<<Error saving .msk file<<%s||&Close", filename.c_str());
+    ui::Alert::show((
+      i18n("Error") + "<<" +
+      i18n("Error saving the .msk file") +
+      "<<%s||" +
+      i18n("Close")
+    ).c_str(), filename.c_str());
 }
 
 Command* CommandFactory::createSaveMaskCommand()

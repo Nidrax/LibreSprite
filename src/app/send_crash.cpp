@@ -1,5 +1,5 @@
 // Aseprite    | Copyright (C) 2001-2016  David Capello
-// LibreSprite | Copyright (C) 2021       LibreSprite contributors
+// LibreSprite | Copyright (C) 2021-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -18,6 +18,7 @@
 #include "base/launcher.h"
 
 #include "send_crash.xml.h"
+#include "modules/i18n.h"
 
 namespace app {
 
@@ -57,7 +58,11 @@ std::string SendCrash::notificationText()
 void SendCrash::notificationClick()
 {
   if (m_dumpFilename.empty()) {
-    ui::Alert::show("Crash Report<<Nothing to report||&OK");
+    ui::Alert::show((
+      i18n("Crash Report") + "<<" +
+      i18n("Nothing to report") + "||" +
+      i18n("OK")
+    ).c_str());
     return;
   }
 
@@ -84,7 +89,10 @@ void SendCrash::notificationClick()
       m_dumpFilename = "";
     }
     catch (const std::exception& ex) {
-      ui::Alert::show("Error<<%s||&OK", ex.what());
+      ui::Alert::show((
+        i18n("Error") + "<<%s||" +
+        i18n("OK")
+      ).c_str(), ex.what());
     }
   }
 }

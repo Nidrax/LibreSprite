@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -52,6 +52,8 @@
 #include "ui/ui.h"
 
 #include <cstdio>
+
+#include "app/modules/i18n.h"
 
 // Size of the thumbnail in the screen (width x height), the really
 // size of the thumbnail bitmap is specified in the
@@ -2453,7 +2455,11 @@ void Timeline::dropRange(DropOp op)
     moveRange(newFromRange);
   }
   catch (const std::exception& e) {
-    ui::Alert::show("Problem<<%s||&OK", e.what());
+    Alert::show((
+      i18n("Problem") +
+      "<<%s||" +
+      i18n("OK")
+    ).c_str(), e.what());
   }
 }
 

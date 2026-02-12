@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -15,6 +15,7 @@
 #include "app/crash/data_recovery.h"
 #include "app/crash/session.h"
 #include "app/modules/gui.h"
+#include "app/modules/i18n.h"
 #include "app/ui/drop_down_button.h"
 #include "app/ui/skin/skin_style_property.h"
 #include "app/ui/skin/skin_theme.h"
@@ -114,9 +115,11 @@ protected:
 
     if (m_backup) {
       // Delete one backup
-      if (Alert::show(PACKAGE
-          "<<Do you really want to delete this backup?"
-          "||&Yes||&No") != 1)
+      if (Alert::show((
+        PACKAGE "<<" +
+        i18n("Do you really want to delete this backup?") + "||" +
+        i18n("Yes") + "||" + i18n("No")
+      ).c_str()) != 1)
         return;
 
       m_session->deleteBackup(m_backup);
@@ -128,10 +131,12 @@ protected:
     else {
       // Delete the whole session
       if (!m_session->isEmpty()) {
-        if (Alert::show(PACKAGE
-            "<<Do you want to delete the whole session?"
-            "<<You will lost all backups related to this session."
-            "||&Yes||&No") != 1)
+        if (Alert::show((
+          PACKAGE "<<" +
+          i18n("Do you want to delete the whole session?") + "<<" +
+          i18n("You will lost all backups related to this session.") + "||" +
+          i18n("Yes") + "||" + i18n("No")
+        ).c_str()) != 1)
           return;
       }
 

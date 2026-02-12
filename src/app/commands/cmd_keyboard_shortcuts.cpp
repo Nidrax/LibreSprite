@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@
 #include "ui/size_hint_event.h"
 
 #include "keyboard_shortcuts.xml.h"
+#include "app/modules/i18n.h"
 
 #define KEYBOARD_FILENAME_EXTENSION "aseprite-keys"
 
@@ -137,11 +138,13 @@ private:
     // Key::disableAccel() will modify the accels() collection itself.
     ui::Accelerator accel = m_key->accels()[index];
 
-    if (Alert::show(
-          "Warning"
-          "<<Do you really want to delete '%s' keyboard shortcut?"
-          "||&Yes||&No",
-          accel.toString().c_str()) != 1)
+    if (Alert::show((
+            i18n("Warning") + "<<" +
+            i18n("Do you really want to delete '%s' keyboard shortcut?") + "||" +
+            i18n("Yes") + "||" +
+            i18n("No")
+          ).c_str(), accel.toString().c_str()
+        ) != 1)
       return;
 
     m_key->disableAccel(accel);
@@ -573,31 +576,37 @@ private:
   }
 
   void onImport() {
-    std::string filename = app::show_file_selector("Import Keyboard Shortcuts", "",
-      KEYBOARD_FILENAME_EXTENSION, FileSelectorType::Open);
+    const std::string filename = show_file_selector(
+      i18n("Import Keyboard Shortcuts"), "",
+      KEYBOARD_FILENAME_EXTENSION, FileSelectorType::Open
+    );
     if (filename.empty())
       return;
 
-    app::KeyboardShortcuts::instance()->importFile(filename.c_str(), KeySource::UserDefined);
+    app::KeyboardShortcuts::instance()->importFile(filename, KeySource::UserDefined);
     fillAllLists();
     layout();
   }
 
   void onExport() {
-    std::string filename = app::show_file_selector(
-      "Export Keyboard Shortcuts", "",
-      KEYBOARD_FILENAME_EXTENSION, FileSelectorType::Save);
+    const std::string filename = show_file_selector(
+      i18n("Export Keyboard Shortcuts"), "",
+      KEYBOARD_FILENAME_EXTENSION, FileSelectorType::Save
+    );
     if (filename.empty())
       return;
 
-    app::KeyboardShortcuts::instance()->exportFile(filename.c_str());
+    app::KeyboardShortcuts::instance()->exportFile(filename);
   }
 
   void onReset() {
-    if (Alert::show("Warning"
-        "<<Do you want to restore all keyboard shortcuts"
-        "<<to their original default settings?"
-        "||&Yes||&No") == 1) {
+    if (Alert::show((
+      i18n("Warning") + "<<" +
+      i18n("Do you want to restore all keyboard shortcuts") + "<<" +
+      i18n("to their original default settings?") + "||" +
+      i18n("Yes") + "||" +
+      i18n("No")
+    ).c_str()) == 1) {
       app::KeyboardShortcuts::instance()->reset();
       layout();
     }

@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,8 @@
 #include <iterator>
 #include <set>
 #include <vector>
+
+#include "app/modules/i18n.h"
 
 #ifndef MAX_PATH
 #  define MAX_PATH 4096         // TODO this is needed for Linux, is it correct?
@@ -551,8 +553,12 @@ again:
       std::string finalFilename = base::get_file_name(buf);
       if (const size_t fver = base::verify_filename(finalFilename); fver != std::string::npos)
       {
-        Alert::show("Error<<Invalid filename: \"%s\"<<The name contains an invalid '%c' character.||&Go back",
-          finalFilename.c_str(), finalFilename[fver]);
+        Alert::show((
+          i18n("Error") + "<<" +
+          i18n("Invalid filename: \"%s\"") + "<<" +
+          i18n("The name contains an invalid '%c' character.") + "||" +
+          i18n("Go back")
+        ).c_str(), finalFilename.c_str(), finalFilename[fver]);
 
         setVisible(true);
         goto again;
@@ -567,24 +573,32 @@ again:
     }
 
     if (m_type == FileSelectorType::Save && base::is_file(buf)) {
-      int ret = Alert::show("Warning<<File exists, overwrite it?<<%s||&Yes||&No||&Cancel",
-                            base::get_file_name(buf).c_str());
+      int ret = Alert::show((
+          i18n("Warning") + "<<" +
+          i18n("File exists, overwrite it?") + "<<%s||" +
+          i18n("Yes") + "||" +
+          i18n("No") + "||" +
+          i18n("Cancel")
+        ).c_str(), base::get_file_name(buf).c_str());
       if (ret == 2) {
         setVisible(true);
         goto again;
       }
-      else if (ret == 1) {
+      if (ret == 1) {
         // Check for read-only attribute
         if (base::has_readonly_attr(buf)) {
-          ui::Alert::show(
-            "Problem<<The selected file is read-only. Try with other file.||&Go back");
+          Alert::show((
+            i18n("Problem") + "<<" +
+            i18n("The selected file is read-only. Try with other file.") + "||" +
+            i18n("Go back")
+          ).c_str());
 
           setVisible(true);
           goto again;
         }
       }
       // Cancel
-      else if (ret != 1) {
+      else {
         return "";
       }
     }
@@ -756,8 +770,12 @@ void FileSelector::onNewFolder()
       if (m_type == FileSelectorType::Save) {
         if (const size_t fver = base::verify_filename(dirname); fver != std::string::npos)
         {
-          Alert::show("Error<<Invalid folder name: \"%s\"<<The name contains an invalid '%c' character.||&OK",
-            dirname.c_str(), dirname[fver]);
+          Alert::show((
+            i18n("Error") + "<<" +
+            i18n("Invalid folder name: \"%s\"") + "<<" +
+            i18n("The name contains an invalid '%c' character.") + "||" +
+            i18n("OK")
+          ).c_str(), dirname.c_str(), dirname[fver]);
 
           setVisible(true);
           return;

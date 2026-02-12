@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -247,9 +247,11 @@ public:
       m_pref.save();
       if (!m_scaleWarningShown) {
           m_scaleWarningShown = true;
-          ui::Alert::show(PACKAGE
-                          "<<Restart Besprited to apply this change"
-                          "||&OK");
+          Alert::show((
+            PACKAGE "<<" +
+            i18n("Restart Besprited to apply this change") + "||" +
+            i18n("OK")
+          ).c_str());
       }
     }
   }
@@ -336,7 +338,12 @@ public:
     m_pref.save();
 
     if (!warnings.empty()) {
-      ui::Alert::show((PACKAGE "<<" + app::i18n("You must restart the program to see your changes to:") + warnings + "||&OK").c_str());
+      Alert::show((
+        PACKAGE "<<" +
+        i18n("You must restart the program to see your changes to:") +
+        warnings + "||" +
+        i18n("OK")
+      ).c_str());
     }
 
     if (reset_screen) {
@@ -474,9 +481,11 @@ private:
         item->themeName() != m_pref.theme.selected()) {
       m_pref.theme.selected(item->themeName());
 
-      ui::Alert::show(PACKAGE
-                      "<<You must restart the program to see the selected theme"
-                      "||&OK");
+      Alert::show((
+        PACKAGE "<<" +
+        i18n("You must restart the program to see the selected theme") + "||" +
+        i18n("OK")
+      ).c_str());
     }
   }
 

@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -17,6 +17,7 @@
 #include "app/ui/status_bar.h"
 #include "app/ui/timeline.h"
 #include "app/transaction.h"
+#include "app/modules/i18n.h"
 #include "doc/layer.h"
 #include "doc/sprite.h"
 #include "ui/alert.h"
@@ -65,7 +66,11 @@ void RemoveLayerCommand::onExecute(Context* context)
     auto range = App::instance()->timeline()->range();
     if (range.enabled()) {
       if (range.layers() == sprite->countLayers()) {
-        ui::Alert::show("Error<<You cannot delete all layers.||&OK");
+        ui::Alert::show((
+          i18n("Error") + "<<" +
+          i18n("You cannot delete all layers.") + "||" +
+          i18n("OK")
+        ).c_str());
         return;
       }
 
@@ -75,7 +80,11 @@ void RemoveLayerCommand::onExecute(Context* context)
     }
     else {
       if (sprite->countLayers() == 1) {
-        ui::Alert::show("Error<<You cannot delete the last layer.||&OK");
+        ui::Alert::show((
+          i18n("Error") + "<<" +
+          i18n("You cannot delete the last layer.") + "||" +
+          i18n("OK")
+        ).c_str());
         return;
       }
 

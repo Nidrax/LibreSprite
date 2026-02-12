@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2015  David Capello
+// Aseprite    | Copyright (C) 2001-2015  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -15,6 +15,7 @@
 #include "app/context.h"
 #include "app/file/palette_file.h"
 #include "app/file_selector.h"
+#include "app/modules/i18n.h"
 #include "app/modules/palettes.h"
 #include "base/fs.h"
 #include "base/path.h"
@@ -60,14 +61,19 @@ void SavePaletteCommand::onExecute(Context* context)
   }
   else {
     std::string exts = get_writable_palette_extensions();
-    filename = app::show_file_selector("Save Palette", "", exts,
-                                       FileSelectorType::Save);
+    filename = show_file_selector(
+      i18n("Save Palette"), "", exts, FileSelectorType::Save
+    );
     if (filename.empty())
       return;
   }
 
   if (!save_palette(filename.c_str(), *palette, 16)) // TODO 16 should be configurable
-    Alert::show("Error<<Saving palette file||&Close");
+    Alert::show((
+      i18n("Error") + "<<" +
+      i18n("Error saving the palette file") + "||" +
+      i18n("Close")
+    ).c_str());
 
   if (m_preset == get_default_palette_preset_name()) {
     set_default_palette(palette);
