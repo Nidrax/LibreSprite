@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2015  David Capello
+// Aseprite    | Copyright (C) 2001-2015  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -13,6 +13,8 @@
 
 #include "base/exception.h"
 #include "base/launcher.h"
+
+#include "modules/i18n.h"
 #include "ui/alert.h"
 
 namespace app {
@@ -26,13 +28,21 @@ void open_url(const std::string& url)
 void open_file(const std::string& file)
 {
   if (!base::launcher::open_file(file))
-    ui::Alert::show("Problem<<Cannot open file:<<%s||&Close", file.c_str());
+    ui::Alert::show((
+      i18n("Problem") + "<<" +
+      i18n("Cannot open file:") + "<<%s||" +
+      i18n("Close")
+    ).c_str(), file.c_str());
 }
 
 void open_folder(const std::string& file)
 {
   if (!base::launcher::open_folder(file))
-    ui::Alert::show("Problem<<Cannot open folder:<<%s||&Close", file.c_str());
+    ui::Alert::show((
+      i18n("Problem") + "<<" +
+      i18n("Cannot open folder:") + "<<%s||" +
+      i18n("Close")
+    ).c_str(), file.c_str());
 }
 
 } // namespace launcher

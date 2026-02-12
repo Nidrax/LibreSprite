@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2016  David Capello
+// Aseprite    | Copyright (C) 2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,8 @@
 #include <sstream>
 #include <vector>
 
+#include "app/modules/i18n.h"
+
 namespace app {
 namespace clipboard {
 
@@ -44,10 +46,18 @@ namespace {
   void custom_error_handler(clip::ErrorCode code) {
     switch (code) {
       case clip::ErrorCode::CannotLock:
-        ui::Alert::show("Error<<Cannot access to the clipboard.\nMaybe other application is using it.||&OK");
+        ui::Alert::show((
+          i18n("Error") + "<<" +
+          i18n("Cannot access to the clipboard.\nMaybe other application is using it.") + "||" +
+          i18n("OK")
+        ).c_str());
         break;
       case clip::ErrorCode::ImageNotSupported:
-        ui::Alert::show("Error<<The current clipboard image format is not supported.||&OK");
+        ui::Alert::show((
+          i18n("Error") + "<<" +
+          i18n("The current clipboard image format is not supported.") + "||" +
+          i18n("&OK")
+        ).c_str());
         break;
     }
   }

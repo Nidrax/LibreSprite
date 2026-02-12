@@ -1,5 +1,5 @@
 // Aseprite    | Copyright (C) 2001-2016  David Capello
-// LibreSprite | Copyright (C) 2021       LibreSprite contributors
+// LibreSprite | Copyright (C) 2021-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,8 @@
 
 #include <cstdio>
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 #define ASE_FILE_MAGIC                      0xA5E0
 #define ASE_FILE_FRAME_MAGIC                0xF1FA
@@ -357,14 +359,17 @@ bool AseFormat::onPostLoad(FileOp* fop)
   if (flat && ase_has_groups(folder)) {
     if (fop->context() &&
         fop->context()->isUIAvailable() &&
-        ui::Alert::show("Warning"
-                        "<<The selected file \"%s\" has layer groups."
-                        "<<Do you want to open it with \"%s %s\" anyway?"
-                        "<<"
-                        "<<Note: Layers inside groups will be converted to top level layers."
-                        "||&Yes||&No",
-                        base::get_file_name(fop->filename()).c_str(),
-                        PACKAGE, ver.c_str()) != 1) {
+        ui::Alert::show((
+            i18n("Warning") + "<<" +
+            i18n("The selected file \"%s\" has layer groups.") + "<<" +
+            i18n("Do you want to open it with \"%s %s\" anyway?") + "<<<<" +
+            i18n("Note: Layers inside groups will be converted to top level layers.") + "||" +
+            i18n("Yes") + "||" +
+            i18n("No")
+          ).c_str(),
+          get_file_name(fop->filename()).c_str(),
+          PACKAGE, ver.c_str()
+        ) != 1) {
       return false;
     }
     ase_ungroup_all(folder);

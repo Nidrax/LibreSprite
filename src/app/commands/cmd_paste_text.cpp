@@ -1,5 +1,5 @@
 // Aseprite    | Copyright (C) 2001-2016  David Capello
-// LibreSprite | Copyright (C)      2021  LibreSprite contributors
+// LibreSprite | Copyright (C) 2021-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,8 @@
 #include "paste_text.xml.h"
 
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -96,7 +98,7 @@ private:
 
   void onSelectFontFile() {
     std::string face = show_file_selector(
-      "Select a TrueType Font",
+      i18n("Select a TrueType Font"),
       m_face,
       "ttf,otf",
       FileSelectorType::Open,
@@ -215,9 +217,10 @@ void PasteTextCommand::onExecute(Context* ctx)
     }
   }
   catch (const std::exception& ex) {
-    ui::Alert::show(PACKAGE
-                    "<<%s"
-                    "||&OK", ex.what());
+    ui::Alert::show((
+      PACKAGE "<<%s||" +
+      i18n("OK")
+    ).c_str(), ex.what());
   }
 }
 

@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,8 @@
 #include "ui/ui.h"
 
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -284,11 +286,11 @@ void SaveFileCommand::onExecute(Context* context)
       context, documentWriter, true,
       m_filenameFormat.c_str());
   }
-  // If the document isn't associated to a file, we must to show the
+  // If the document isn't associated to a file, we must show the
   // save-as dialog to the user to select for first time the file-name
   // for this document.
   else {
-    saveAsDialog(context, "Save File");
+    saveAsDialog(context, i18n("Save File").c_str());
   }
 }
 
@@ -308,7 +310,7 @@ SaveFileAsCommand::SaveFileAsCommand()
 
 void SaveFileAsCommand::onExecute(Context* context)
 {
-  saveAsDialog(context, "Save As");
+  saveAsDialog(context, i18n("Save As").c_str());
 }
 
 class SaveFileCopyAsCommand : public SaveFileBaseCommand {
@@ -341,7 +343,7 @@ void SaveFileCopyAsCommand::onExecute(Context* context)
       docPref.saveCopy.filename());
   }
 
-  if (saveAsDialog(context, "Save Copy As", &delegate)) {
+  if (saveAsDialog(context, i18n("Save Copy As").c_str(), &delegate)) {
     docPref.saveCopy.filename(document->filename());
     docPref.saveCopy.resizeScale(delegate.getResizeScale());
 

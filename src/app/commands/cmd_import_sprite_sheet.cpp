@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -38,6 +38,7 @@
 #include "ui/ui.h"
 
 #include "import_sprite_sheet.xml.h"
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -379,11 +380,13 @@ void ImportSpriteSheetCommand::onExecute(Context* context)
       animation.push_back(resultImage);
     }
 
-    if (animation.size() == 0) {
-      Alert::show("Import Sprite Sheet"
-        "<<The specified rectangle does not create any tile."
-        "<<Select a rectangle inside the sprite region."
-        "||&OK");
+    if (animation.empty()) {
+      Alert::show((
+        i18n("Import Sprite Sheet") + "<<" +
+        i18n("The specified rectangle does not create any tile.") + "<<" +
+        i18n("Select a rectangle inside the sprite region.") + "||" +
+        i18n("OK")
+      ).c_str());
       return;
     }
 

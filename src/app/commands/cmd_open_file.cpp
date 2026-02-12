@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -30,6 +30,8 @@
 
 #include <cstdio>
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -114,8 +116,9 @@ void OpenFileCommand::onExecute(Context* context)
     if (!m_folder.empty() && !base::is_path_separator(m_folder[m_folder.size()-1]))
       m_folder.push_back(base::path_separator);
 
-    m_filename = app::show_file_selector("Open", m_folder, exts,
-      FileSelectorType::Open);
+    m_filename = show_file_selector(
+      i18n("Open"), m_folder, exts, FileSelectorType::Open
+    );
   }
 
   if (!m_filename.empty()) {

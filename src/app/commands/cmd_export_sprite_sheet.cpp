@@ -1,7 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
-// LibreSprite
-// Copyright (C) 2021-2021  LibreSprite contributors
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C) 2021-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -36,6 +34,8 @@
 
 #include <limits>
 #include <sstream>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -196,7 +196,9 @@ namespace {
          !dataname.empty() &&
          base::is_file(dataname))) {
       std::stringstream text;
-      text << "Export Sprite Sheet Warning<<Do you want to overwrite the following file(s)?";
+      text
+        << i18n("Export Sprite Sheet Warning") << "<<"
+        << i18n("Do you want to overwrite the following file(s)?");
 
       if (base::is_file(filename))
         text << "<<" << base::get_file_name(filename).c_str();
@@ -204,7 +206,7 @@ namespace {
       if (base::is_file(dataname))
         text << "<<" << base::get_file_name(dataname).c_str();
 
-      text << "||&Yes||&No";
+      text << "||" << i18n("Yes") << "||" << i18n("No");
       if (Alert::show(text.str().c_str()) != 1)
         return false;
     }
@@ -666,7 +668,7 @@ private:
     std::string exts = get_writable_extensions();
 
     std::string newFilename = app::show_file_selector(
-      "Save Sprite Sheet", m_filename, exts, FileSelectorType::Save);
+      i18n("Save Sprite Sheet"), m_filename, exts, FileSelectorType::Save);
     if (newFilename.empty())
       return;
 
@@ -686,7 +688,7 @@ private:
   void onDataFilename() {
     // TODO hardcoded "json" extension
     std::string newFilename = app::show_file_selector(
-      "Save JSON Data", m_dataFilename, "json", FileSelectorType::Save);
+      i18n("Save JSON Data"), m_dataFilename, "json", FileSelectorType::Save);
     if (newFilename.empty())
       return;
 

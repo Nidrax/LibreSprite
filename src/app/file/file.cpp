@@ -1,5 +1,5 @@
 // Aseprite    | Copyright (C) 2001-2016  David Capello
-// LibreSprite | Copyright (C) 2021       LibreSprite contributors
+// LibreSprite | Copyright (C) 2021-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,8 @@
 #include <cstring>
 #include <cstdarg>
 #include <string_view>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -167,13 +169,15 @@ FileOp* FileOp::createLoadDocumentOperation(Context* context, const char* filena
       /* TODO add a better dialog to edit file-names */
       if ((fop->m_loadFlags & FILE_LOAD_SEQUENCE_ASK) && fop->m_context && fop->m_context->isUIAvailable() && fop->m_seq.filename_list.size() > 1) {
         /* really want load all files? */
-        bool skip = ui::Alert::show("Notice"
-                                    "<<Possible animation with:"
-                                    "<<%s, %s..."
-                                    "<<Do you want to load the sequence of bitmaps?"
-                                    "||&Agree||&Skip",
-                                    base::get_file_name(fop->m_seq.filename_list[0]).c_str(),
-                                    base::get_file_name(fop->m_seq.filename_list[1]).c_str()) != 1;
+        const bool skip = ui::Alert::show((
+            i18n("Notice") + "<<" +
+            i18n("Possible animation with:") + "<<%s, %s...<<" +
+            i18n("Do you want to load the sequence of bitmaps?") + "||" +
+            i18n("Agree") + "||" + i18n("Skip")
+          ).c_str(),
+          get_file_name(fop->m_seq.filename_list[0]).c_str(),
+          get_file_name(fop->m_seq.filename_list[1]).c_str()
+        ) != 1;
         if (skip) {
           // If the user replies "Skip", we need just the first file name
           fop->m_seq.filename_list.erase(fop->m_seq.filename_list.begin()+1, fop->m_seq.filename_list.end());
@@ -319,21 +323,28 @@ FileOp* FileOp::createSaveDocumentOperation(const Context* context,
       warnings += "<<You can use \".ase\" format to keep all this information.";
 
       if (fatal) {
-        ui::Alert::show("Error<<File format \".%s\" doesn't support:%s"
-                                  "||&Close",
-                                  fop->m_format->name(),
-                                  warnings.c_str());
+        ui::Alert::show((
+            i18n("Error") + "<<" +
+            i18n("File format \".%s\" doesn't support: %s") + "||" +
+            i18n("Close")
+          ).c_str(),
+          fop->m_format->name(),
+          warnings.c_str());
         return nullptr;
-      } else {
-        int ret = ui::Alert::show("Warning<<File format \".%s\" doesn't support:%s"
-                                  "<<Do you want continue with \".%s\" anyway?"
-                                  "||&Yes||&No",
-                                  fop->m_format->name(),
-                                  warnings.c_str(),
-                                  fop->m_format->name());
-        if (ret != 1)
-          return nullptr;
       }
+
+      int ret = ui::Alert::show((
+          i18n("Warning") + "<<" +
+          i18n("File format \".%s\" doesn't support: %s") + "<<" +
+          i18n("Do you want continue with \".%s\" anyway?") + "||" +
+          i18n("Yes") + "||" +
+          i18n("No")
+        ).c_str(),
+        fop->m_format->name(),
+        warnings.c_str(),
+        fop->m_format->name());
+      if (ret != 1)
+        return nullptr;
     }
     // No interactive & fatal error?
     else if (fatal) {
@@ -413,13 +424,17 @@ FileOp* FileOp::createSaveDocumentOperation(const Context* context,
 
       if (context && context->isUIAvailable() &&
           fop->m_seq.filename_list.size() > 1 &&
-          ui::Alert::show("Notice"
-                          "<<Do you want to export the animation in %d files?"
-                          "<<%s, %s..."
-                          "||&Agree||&Cancel",
-                          int(fop->m_seq.filename_list.size()),
-                          base::get_file_name(fop->m_seq.filename_list[0]).c_str(),
-                          base::get_file_name(fop->m_seq.filename_list[1]).c_str()) != 1) {
+          ui::Alert::show((
+              i18n("Notice") + "<<" +
+              i18n("Do you want to export the animation in %d files?") +
+              "<<%s, %s...||" +
+              i18n("Agree") + "||" +
+              i18n("Cancel")
+            ).c_str(),
+            static_cast<int>(fop->m_seq.filename_list.size()),
+            get_file_name(fop->m_seq.filename_list[0]).c_str(),
+            get_file_name(fop->m_seq.filename_list[1]).c_str()
+          ) != 1) {
         return nullptr;
       }
     }

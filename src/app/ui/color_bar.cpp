@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -64,6 +64,8 @@
 
 
 #include <cstring>
+
+#include "app/modules/i18n.h"
 
 
 namespace app {
@@ -552,11 +554,12 @@ void ColorBar::onRemapButtonClick()
 
   // Check the remap
   if (!remap.isFor8bit() &&
-      Alert::show(
-        "Automatic Remap"
-        "<<The remap operation cannot be perfectly done for more than 256 colors."
-        "<<Do you want to continue anyway?"
-        "||&OK||&Cancel") != 1) {
+      Alert::show((
+        i18n("Automatic Remap") + "<<" +
+        i18n("The remap operation cannot be perfectly done for more than 256 colors.") + "<<" +
+        i18n("Do you want to continue anyway?") + "||" +
+        i18n("OK") + "||" + i18n("Cancel")
+      ).c_str()) != 1) {
     return;
   }
 

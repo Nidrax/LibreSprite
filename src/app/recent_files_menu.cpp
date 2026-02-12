@@ -1,5 +1,4 @@
-// LibreSprite
-// Copyright (C) 2021 LibreSprite contributors
+// LibreSprite | Copyright (C) 2021-2026 LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -15,6 +14,7 @@
 #include "base/bind.h"
 #include "base/path.h"
 #include "recent_files.h"
+#include "modules/i18n.h"
 
 namespace app {
 
@@ -59,7 +59,7 @@ void RecentFilesMenu::rebuildRecentList()
         }
     }
     else {
-        auto menuitem = new AppMenuItem("Nothing", NULL, Params());
+        auto menuitem = new AppMenuItem(i18n("Nothing").c_str(), nullptr, Params());
         menuitem->setEnabled(false);
         submenu->addChild(menuitem);
     }

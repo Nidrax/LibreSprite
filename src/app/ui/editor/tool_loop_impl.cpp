@@ -31,6 +31,7 @@
 #include "app/tools/tool_box.h"
 #include "app/tools/tool_loop.h"
 #include "app/transaction.h"
+#include "app/modules/i18n.h"
 #include "app/ui/color_bar.h"
 #include "app/ui/context_bar.h"
 #include "app/ui/editor/editor.h"
@@ -528,11 +529,13 @@ tools::ToolLoop* create_tool_loop(Editor* editor, Context* context)
   ASSERT(bg.isValid());
 
   if (!fg.isValid() || !bg.isValid()) {
-    Alert::show(PACKAGE
-                "<<The current selected foreground and/or background color"
-                "<<is out of range. Select a valid color in the color-bar."
-                "||&Close");
-    return NULL;
+    Alert::show((
+      PACKAGE "<<" +
+      i18n("The current selected foreground and/or background color") + "<<" +
+      i18n("is out of range. Select a valid color in the color-bar.") + "||" +
+      i18n("Close")
+    ).c_str());
+    return nullptr;
   }
 
   // Create the new tool loop
@@ -546,12 +549,13 @@ tools::ToolLoop* create_tool_loop(Editor* editor, Context* context)
       fg, bg);
   }
   catch (const std::exception& ex) {
-    Alert::show(PACKAGE
-                "<<Error drawing ink:"
-                "<<%s"
-                "||&Close",
-                ex.what());
-    return NULL;
+    Alert::show((
+      PACKAGE "<<" +
+      i18n("Error drawing ink:") +
+      "<<%s||" +
+      i18n("Close")
+    ).c_str(), ex.what());
+    return nullptr;
   }
 }
 

@@ -1,4 +1,4 @@
-// LibreSprite | Copyright (C) 2023       LibreSprite contributors
+// LibreSprite | Copyright (C) 2023-2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,8 @@
 
 #include <archive.h>
 #include <archive_entry.h>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -119,7 +121,11 @@ bool ExtensionFormat::onLoad(FileOp* fop)
   if (themeName != Preferences::instance().theme.selected()) {
     TaskManager::instance().delayed([=]{
       Preferences::instance().theme.selected(themeName);
-      ui::Alert::show(PACKAGE "<<You must restart the program to see the selected theme" "||&OK");
+      ui::Alert::show((
+        PACKAGE "<<" +
+        i18n("You must restart the program to see the selected theme") + "||" +
+        i18n("OK")
+      ).c_str());
     });
   }
 

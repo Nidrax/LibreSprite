@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2016  David Capello
+// Aseprite    | Copyright (C) 2001-2016  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -45,6 +45,8 @@
 #include "ui/view.h"
 
 #include <typeinfo>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -247,26 +249,29 @@ bool DocumentView::onCloseView(Workspace* workspace, bool quitting)
       // see if the sprite has changes
       while (m_document->isModified()) {
         // ask what want to do the user with the changes in the sprite
-        int ret = Alert::show("Warning"
-                              "<<Saving changes to the sprite"
-                              "<<\"%s\" before %s?"
-                              "||&Save||Do&n't Save||&Cancel",
-                              m_document->name().c_str(),
-                              quitting ? "quitting": "closing");
+        int ret = Alert::show((
+            i18n("Warning") + "<<" +
+            i18n("Saving changes to the sprite") + "<<" +
+            i18n("\"%s\" before %s?") + "||" +
+            i18n("Save") + "||" +
+            i18n("Don't Save") + "||" +
+            i18n("Cancel")
+          ).c_str(), m_document->name().c_str(), quitting
+            ? i18n("quitting").c_str()
+            : i18n("closing").c_str()
+        );
 
         if (ret == 1) {
           // "save": save the changes
           save_it = true;
           break;
         }
-        else if (ret != 2) {
-          // "cancel" or "ESC" */
-          return false; // we back doing nothing
-        }
-        else {
+        if (ret == 2) {
           // "discard"
           break;
         }
+        // "cancel" or "ESC" */
+        return false; // we back doing nothing
       }
     }
 

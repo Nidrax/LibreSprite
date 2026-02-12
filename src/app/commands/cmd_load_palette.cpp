@@ -1,5 +1,5 @@
-// Aseprite
-// Copyright (C) 2001-2015  David Capello
+// Aseprite    | Copyright (C) 2001-2015  David Capello
+// LibreSprite | Copyright (C)      2026  LibreSprite contributors
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,8 @@
 #include "ui/alert.h"
 
 #include <memory>
+
+#include "app/modules/i18n.h"
 
 namespace app {
 
@@ -62,14 +64,19 @@ void LoadPaletteCommand::onExecute(Context* context)
   }
   else {
     std::string exts = get_readable_palette_extensions();
-    filename = app::show_file_selector("Load Palette", "", exts,
-                                       FileSelectorType::Open);
+    filename = show_file_selector(
+      i18n("Load Palette"), "", exts, FileSelectorType::Open
+    );
   }
 
   if (!filename.empty()) {
     auto palette = load_palette(filename.c_str());
     if (!palette) {
-      Alert::show("Error<<Loading palette file||&Close");
+      Alert::show((
+        i18n("Error") + "<<" +
+        i18n("Error loading the palette file.") + "||" +
+        i18n("Close")
+      ).c_str());
     }
     else {
       auto cmd = static_cast<SetPaletteCommand*>(CommandsModule::instance()->getCommandByName(CommandId::SetPalette));
